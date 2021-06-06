@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C2-Python</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+ /* file saved to local directory */
+    @import url("gh-fork-ribbon.css");
+    /* alternatively fetch from cdnjs */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css");
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      div.my-header {
+        background-color: #000000;
+        /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#606550), color-stop(0%,#409494), color-stop(0%,#ffffff), color-stop(10%,#ffffff), color-stop(25%,#b3fbb3), color-stop(100%,#008c2e));*/
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 22px;
+        width: 100%;
+        text-align: left;
+      }
+      div.my-header span{
+        color: white;
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        font-size: 16px;
+
+      }
+      div.my-footer {
+        /*border-top: 1px solid #ccc;*/
+        font-size: 8pt;
+        text-align: left;
+        position: fixed;
+        bottom: 0px;
+        left: 10px;
+        /*height: 30px;*/
+        /*width: 100%;*/
+      }
+
+      div.my-footer p {
+      /*    margin-top: 10px;
+          height: 30px;*/
+          margin-bottom: 0px;
+      }
+      div.my-footer img {
+        vertical-align:middle;
+      }
+
+      img.alt {
+        width: 100px;
+      }
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+        margin-left: 10px
+      }
+
+      .work{
+        float: right;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        margin-right: -5px;
+      }
+
+
+      .bottom-content {
+        position: absolute;
+        top: 90%;
+      }
+
+      span.red {
+        color: hsl(355deg 98% 40%);
+        right: -25%;
+        position: relative;
+      }
+
+      #move {
+        animation: shake 5.0s;
+        /*animation-iteration-count: infinite;*/
+      }
+
+        @keyframes shake {
+          0% { transform: translate(1px, 1px) rotate(0deg); }
+          10% { transform: translate(-1px, -2px) rotate(-1deg); }
+          20% { transform: translate(-3px, 0px) rotate(1deg); }
+          30% { transform: translate(3px, 2px) rotate(0deg); }
+          40% { transform: translate(1px, -1px) rotate(1deg); }
+          50% { transform: translate(-1px, 2px) rotate(-1deg); }
+          60% { transform: translate(-3px, 1px) rotate(0deg); }
+          70% { transform: translate(3px, 1px) rotate(-1deg); }
+          80% { transform: translate(-1px, -1px) rotate(1deg); }
+          90% { transform: translate(1px, 2px) rotate(0deg); }
+          100% { transform: translate(1px, -1px) rotate(-1deg); }
+        }
+
+        #colorani path{
+                animation: mycolor 5s;
+                /*animation-iteration-count: infinite;*/
+        }
+        @keyframes mycolor {
+          0% { fill:#66ffff; }
+          10% { fill:#4dffff; }
+          20% { fill:#33ffff; }
+          30% { fill:#1affff; }
+          40% { fill:#00ffff; }
+          50% { fill:#00e6e690; }
+          60% { fill:#00cccc80; }
+          70% { fill:#00b3b370; }
+          80% { fill:#00999950; }
+          90% { fill:#00808030; }
+          100% { fill:#00666610; }
+        }
+
+         
+        .hide {
+            animation: cssAnimation 0s 5s forwards;
+            visibility: visible;
+
+        }
+
+        @keyframes cssAnimation {
+          to   { visibility: hidden; }
+        }
+/*
+        @keyframes cssAnimation {
+            0%   {opacity: 1;}
+            60%  {opacity: 0.7;}
+            90%  {opacity: 0.4;}
+            100% {opacity: 0;}
+        }
+*/
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+
+
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+ <div class="my-header">
+
+    <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Numpy</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
+
+    <span>C2. Python - Librería Numpy </span>
+
+ 
+ </div>
+ <div class="my-footer">
+    <p> 2021 - Isaac Lera </p>
+ </div>
+
+---
+class: center, middle
+# C2. Librería Numpy
+## Vectores, Matrices y Arrays Multidimensionales
+
+
+---
+
+# Numpy
+
+*[Numpy](https://numpy.org/) provee funciones eficientes para la manipulación y el procesamiento de arrays. Está implementado en C*
+
+No son python listas [] donde puede ir cualquier cosa. Los elementos de un array numpy son homogéneos, incluyen operaciones baciscas y otros tipos de álgebra linea.
+
+```python
+import numpy as np  #Al entorno virtual!
+
+data = np.array([1,0]) 
+print(data[0])
+print(type(data[0]))
+
+data = np.array([[1,0],[2,0],[3,0]])
+print(data[0])
+print(data[1:2])
+```
+
+```python
+data.shape
+
+data.size
+
+data.ndim
+
+data.dtype
+```
+
+---
+
+# Data types
+
+Tipos:
+- int: int8, int16, int32, int64
+- uint: uint8, uint16, uint32, uint64 
+- bool: Bool 
+- float:   float16, float32, float64, float128  
+- complex: complex64, complex128, complex256  
+
+
+```python
+data = np.array([[1,0],[2,0]],dtype=np.int)
+data = np.array([[1,0],[2,0]],dtype=np.complex)
+data = np.array([[1,0],[2,0]],dtype=np.float)
+
+# Conversión
+data = np.array(data,dtype=np.uint)
+data = data.astype(np.bool)
+```
+
+---
+
+# Generación
+
+[Creación](https://numpy.org/doc/stable/reference/routines.array-creation.html)
+
+```python
+np.array(range(10))
+np.arange(10)
+np.zeros(10)
+np.ones(10)
+np.linspace(0,1,10)
+np.logspace(0,2,5) # 5 puntos entre 10**0 y 10**2
+np.meshgrid(np.arange(10),np.arange(10,20))
+```
+
+[Sampling](https://numpy.org/doc/1.16/reference/routines.random.html)
+```python
+np.random.rand(10,3)
+np.random.randint(1,10,size=(10,2))
+np.random.randint(1,10,20).reshape(10,2)
+
+np.array(np.random.rand(20)*10,dtype=int).reshape(10,2)
+```
+
+```python
+np.identity(3)
+np.eye(3,k=-1)
+np.eye(3,k=1)
+np.diag([1,2,3,4])
+```
+---
+
+
+---
+
+# Operativas I 
+
+
+```python
+a = np.array([0,1])
+b = np.array([1,1])
+a+b
+a-b
+a/b
+a*b
+2**a
+
+c = np.array([1,1,1])
+a+c
+```
+
+---
+
+# Operativas II
+
+Obviamente, *slicing* y lógicas
+
+```python
+a = np.arange(10)
+a > 5
+a[a>5]
+
+a = np.arange(20).reshape(5,4)
+a[a>5]
+
+np.all(a>5)
+np.any(a>5)
+```
+
+---
+
+# Funciones matemáticas y de agregación
+
+[Funciones](https://numpy.org/doc/stable/reference/routines.math.html)
+
+```python
+a = np.array(range(10))
+np.cos(a)
+np.exp(a)
+np.log(a)
+
+np.sum(a)
+np.cumsum(a)
+np.mean(a)
+np.cumprod(a)
+np.min(a)
+np.argmax(a)
+
+a.mean()
+
+a = a.reshape(2,5)
+np.sum(a,axis=1)
+np.sum(a,axis=0)
+```
+
+
+
+---
+
+# Restructuración de la dimensión
+
+```python
+a = np.arange(10).reshape(2,5)
+a.T
+np.hstack(a) 
+b = np.arange(10,20).reshape(2,5)
+np.hstack((a,b)) # axis-1
+np.vstack((a,b)) # axis-0
+np.dstack((a,b)) # axis-2 
+
+np.concatenate((a,b))
+np.concatenate((a,b)),axis=1)
+```
+
+---
+
+# Funciones propias vectorizadas
+
+```python
+def isHot(x):
+  return (x>=32 and x<40)
+
+a = np.random.randint(10,60,100)
+isHot = np.vectorize(isHot)
+isHot(a)
+
+#alternativa
+np.logical_and(a>=32,a<40) 
+
+#alternativa
+isHot = lambda x:x>=32 and x<40 #otra manera
+list(map(isHot,a))
+```
+
+---
+
+# Funciones lógicas
+
+```python
+a = np.random.randint(-60,60,100)
+
+np.where(a>50) #returns index
+
+idx = np.where(a>50) 
+a[idx] #we get the values
+
+np.logical_or(a<-40,a>40)
+np.logical_not(np.logical_or(a<-40,a>40))
+```
+
+---
+
+# Operaciones de grupos
+
+```python
+a = np.random.randint(-60,60,100)
+
+3 in a
+
+print("Elementos repetidos %i de un total de %i"%(len(a)-len(np.unique(a)),len(a)))
+
+a = np.arange(10)
+b = np.arange(5,15)
+np.in1d(a,b)
+np.intersect1d(a,b)
+np.setdiff1d(a,b)
+np.setdiff1d(b,a)
+np.union1d(a,b)
+```
+---
+
+# Operaciones matriciales
+
+- np.dot - multiplicación matricial
+- np.inner - multiplicación escalar entre vectores
+- np.cross - producto cruz entre vectores
+- np.kron - kron product
+- np.einsum - evaluación del sumatorio de einsteins for arrays multidimensionales.
+
+```python
+a = np.arange(10).reshape(2,5)
+b = np.arange(10,20).reshape(5,2)
+np.dot(a,b)
+np.kron(a,b)
+```
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad
+**Sudoku**. ¿Existe alguna fila o columna con una única incógnita?
+
+```python
+# 4 x 4
+[0,4,0,0] => [2,4,0,0]
+[1,0,4,0] => [1,0,4,0]
+[4,0,0,1] => [4,0,0,1] 
+[3,1,2,0] => [3,1,2,4] 
+```
+
+```python
+case = np.array([[5,3,0,0,7,0,0,0,0],
+                 [6,0,0,1,9,5,0,0,0],
+                 [0,9,8,0,0,0,0,6,0],
+                 [8,0,0,0,6,0,0,0,3],
+                 [4,0,0,8,0,3,0,0,1],
+                 [7,0,0,0,2,0,0,0,6],
+                 [0,6,0,0,0,0,2,8,0],
+                 [0,0,0,4,1,9,0,0,5],
+                 [0,0,0,0,8,0,0,7,9]])
+```
+
+???
+np.sum(case>0,axis=0)==8
+
+---
+background-color: #eeeeee
+class: center, middle
+
+# Fin C3.
+
+
+<a href="Slides_PandaB1.html">
+<svg id="move" class="svg-icon" viewBox="0 0 24 24" height="80" width="80" alt="Siguiente Tema">
+  <g>
+   <path fill="#aaaaaa" d="m7.83 3.404 1.741-2.909c-0.204-0.088-0.421-0.151-0.658-0.151-0.954 0-1.728 0.774-1.728 1.728 0 0.541 0.256 1.015 0.645 1.332z"/>
+   <path fill="#aaaaaa" d="m19.645 12.002-0.464-0.31c-0.09-1.505-0.628-2.972-1.575-4.187l-1.212 0.156 0.084-0.125c0.316-0.473 0.188-1.119-0.286-1.435l-0.675-0.451c-0.473-0.316-1.119-0.187-1.435 0.286l-0.095 0.142-0.538-3.219-3.271-2.033-1.754 2.93 0.86 0.481-6.244-0.792-0.904 1.353 3.766 2.516c-0.17 0.204-0.333 0.414-0.484 0.639-0.149 0.225-0.281 0.457-0.405 0.692l-3.766-2.516-0.903 1.353 4.878 8.537 8e-3 -0.013c0.098 0.164 0.207 0.322 0.317 0.479l1.628-0.209-0.302 0.452c-0.316 0.473-0.187 1.119 0.286 1.435l0.675 0.451c0.473 0.316 1.119 0.188 1.435-0.286l0.252-0.378 0.185 1.442c1.418 0.385 2.904 0.334 4.273-0.105l0.552 0.369c1.512-0.533 2.87-1.542 3.829-2.977 0.96-1.435 1.372-3.077 1.285-4.677zm-5.555 4.053c-0.106 0.158-0.32 0.201-0.478 0.095s-0.201-0.32-0.095-0.478 0.32-0.201 0.478-0.095c0.158 0.105 0.201 0.319 0.095 0.478zm-0.121-2.391c-0.513 0.769-1.371 1.227-2.296 1.227-0.546 0-1.075-0.161-1.531-0.465-1.265-0.845-1.606-2.561-0.762-3.826 0.513-0.768 1.372-1.227 2.297-1.227 0.545 0 1.074 0.161 1.53 0.465 1.265 0.845 1.607 2.562 0.762 3.826zm1.096 3.812c-0.106 0.158-0.32 0.201-0.478 0.095s-0.201-0.32-0.095-0.478 0.32-0.201 0.478-0.095c0.159 0.106 0.201 0.32 0.095 0.478zm0.269-2.708c-0.106 0.158-0.32 0.201-0.478 0.095s-0.201-0.32-0.095-0.478 0.32-0.201 0.478-0.095 0.201 0.32 0.095 0.478zm0.234-1.546c-0.158-0.106-0.201-0.32-0.095-0.478s0.32-0.201 0.478-0.095 0.201 0.32 0.095 0.478-0.32 0.2-0.478 0.095zm1.097 2.436c-0.106 0.158-0.32 0.201-0.478 0.095s-0.201-0.32-0.095-0.478 0.32-0.201 0.478-0.095 0.201 0.319 0.095 0.478zm1.068-2.175c-0.106 0.158-0.32 0.201-0.478 0.095s-0.201-0.32-0.095-0.478 0.32-0.201 0.478-0.095 0.201 0.32 0.095 0.478z"/>
+   <path  fill="#aaaaaa" d="m12.824 10.412c-0.341-0.228-0.738-0.349-1.146-0.349-0.694 0-1.338 0.344-1.723 0.92-0.634 0.949-0.377 2.236 0.571 2.869 0.342 0.228 0.739 0.35 1.147 0.35 0.694 0 1.337-0.344 1.722-0.92 0.634-0.95 0.378-2.237-0.571-2.87z"/>
+  </g>
+  <g id="colorani" class="hide" stroke-width=".26458px">
+   <path d="m15.111 19.771c4.6939-1.637 5.1282-6.7486 5.1282-6.7486"/>
+   <path d="m16.096 19.838c4.2262-2.0713 4.3431-5.479 4.3431-5.479"/>
+   <path d="m16.965 19.888c3.4912-1.921 3.7251-4.5102 3.7251-4.5102"/>
+   <path d="m18.168 19.788c2.205-1.3029 2.656-3.2072 2.656-3.2072"/>
+   <path d="m19.07 19.838c1.8208-0.7684 2.0212-2.3219 2.0212-2.3219"/>
+   <path d="m20.239 19.855c0.98556-0.96885 1.0023-1.1693 1.0023-1.1693"/>
+  </g>
+
+  </svg>
+</a>
+
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C2 - Python - B5</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+ /* file saved to local directory */
+    @import url("gh-fork-ribbon.css");
+    /* alternatively fetch from cdnjs */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css");
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      div.my-header {
+        background-color: #000000;
+        /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#606550), color-stop(0%,#409494), color-stop(0%,#ffffff), color-stop(10%,#ffffff), color-stop(25%,#b3fbb3), color-stop(100%,#008c2e));*/
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 22px;
+        width: 100%;
+        text-align: left;
+      }
+      div.my-header span{
+        color: white;
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        font-size: 16px;
+
+      }
+      div.my-footer {
+        /*border-top: 1px solid #ccc;*/
+        font-size: 8pt;
+        text-align: left;
+        position: fixed;
+        bottom: 0px;
+        left: 10px;
+        /*height: 30px;*/
+        /*width: 100%;*/
+      }
+
+      div.my-footer p {
+      /*    margin-top: 10px;
+          height: 30px;*/
+          margin-bottom: 0px;
+      }
+      div.my-footer img {
+        vertical-align:middle;
+      }
+
+      img.alt {
+        width: 100px;
+      }
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+        margin-left: 10px
+      }
+
+      .work{
+        float: right;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        margin-right: -5px;
+      }
+
+      #colorani path{
+        animation: mycolor 4s;
+        /*animation-iteration-count: infinite;*/
+      }
+        @keyframes mycolor {
+          0% { fill:#ffff4d; }
+          10% { fill:#e6e600; }
+          20% { fill:#cccc00; }
+          30% { fill:#b3b300; }
+          40% { fill:#999900; }
+          50% { fill:#808000; }
+          60% { fill:#666600; }
+          70% { fill:#4d4d00; }
+          80% { fill:#333300; }
+          90% { fill:#1a1a00; }
+          100% { fill:#000000; }
+        }
+
+
+
+        a:before,
+        a:after, #face {
+          animation: glow-grow 8s ease-out;
+        }
+
+        @keyframes glow-grow {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.);
+            opacity: 1;
+          }
+        }
+
+          .var {
+                font-family: 'Dosis';
+                font-weight: normal;
+          }
+
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+ <div class="my-header">
+
+    <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Pandas B5</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
+
+    <span>C2. Pandas. B5</span>
+
+ 
+ </div>
+ <div class="my-footer">
+    <p> 2021 - Isaac Lera </p>
+ </div>
+
+---
+class: center, middle
+# C2. Pandas
+### - Bloque 5 - 
+---
+
+
+# Contenido
+
+- *B1 Introducción a la estructura DataFrame.
+  Características, Carga y Acceso*
+
+- *B2 Creación y Almacenamiento*
+
+- *B3 Visualización con pandas.*
+
+- *B4 Otras operaciones con DataFrames: agrupaciones de datos, ...*
+
+- **B5 Uniendo datos y gestionando datos desconocidos.**
+
+- B6 Series Temporales.
+
+
+Con intercalación de ejercicios entre bloques !
+
+---
+
+# Unión de datos
+
+En algunas situaciones, la información está dispersa en varios ficheros o fuentes de datos. Por ejemplo, un escenario común son datos de diferentes tablas de un modelo de almacenamiento relacional.
+
+Cuando queremos establecer relaciones entre diferentes dataframes podemos realizar dos tipos de operaciones:
+
+- Concatenate
+- Merge. Está ultima operación es similar a *joins* en BBDD.
+
+La unión de datos es una operación más compleja por la estructura y por la relación entre los datos con respecto a operaciones de unión y concadenación de estructuras más simples. Por ejemplo:
+
+```python
+lA = range(0,10,1)+range(10,20,1)
+```
+
+---
+
+# Concatenación de dataframes
+
+Concadenar es una operación que une dataframes. La concatenación nos permite filtrar información previa a la unión. La gestión del índice es importantisima ya que identifica cada muestra de manera inequívoca.
+
+```python
+import pandas as pd
+
+df1 = pd.read_csv("experiment.csv") 
+df2 = pd.read_csv("experiment2.csv")
+
+df3 = pd.concat([df1,df2])
+
+print(df3)           #¿Qué ocurre con el índice?
+```
+
+--
+
+En esta situación, hay que arreglar el índice! Usemos la documentación para ver las posibilidades de la operación [Enlace](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html). La firma de la función es:
+
+```python
+pd.concat(objs, axis=0, join='outer', join_axes=None, ignore_index=False, keys=None, levels=None, names=None, verify_integrity=False, copy=True)
+```
+
+---
+
+
+# Concatenación de dataframes
+
+- ignore_index : boolean, default False. If True, do not use the index values on the concatenation axis. The resulting axis will be labeled 0, ..., n - 1. This is useful if you are concatenating objects where the concatenation axis does not have meaningful indexing information. Note the index values on the other axes are still respected in the join.
+
+```python
+df3 = pd.concat([df,df2],ignore_index=True)
+print(df3)  #¿Qué ocurre con el índice?
+```
+
+---
+
+# Concatenación de dataframes
+
+¿Qué ocurre cuando los datafranes tienen columnas diferentes?
+
+```python
+df3 = pd.read_csv("experiment3.csv")
+df4 = pd.concat([df1,df2,df3])
+print(df4)  
+```
+
+---
+
+# Concatenación de dataframes <span>&#8544;</span>
+
+Varios detalles:
+- La secuencia de elementos introducidos en la función de concat, admite dataframes. Podemos aplicar técnicas de selección bajo condicionantes como hemos visto en capítulos anteriores.
+
+```python
+df3 = pd.concat([df1[:2],df2[3:]])
+
+df3 = pd.concat([df1[df1.Apellidos=="Snow"],df2]) 
+
+```
+
+- El índice es importante porque nos permite identificar el origen de los datos
+Una manera de no perder está referencia es creando otro nivel en el índice, por ejemplo:
+
+```python
+df3 = pd.concat([df1,df2],keys=["fichero1","source2"])
+print(df3)  
+```
+
+---
+
+# Concatenación de dataframes <span>&#8545;</span>
+
+Varios detalles:
+
+- Las uniones pueden añadir nuevas columnas. El criterio que se utiliza es unir por el eje de columnas (axis=1)
+
+```python
+result = pd.concat([df2, df2b], axis=1) 
+print(result)  
+```
+
+
+---
+class: center, middle
+# Merge
+
+---
+
+# Merge
+
+Es similar a la operación **join** en una base de datos. En el fondo, podríamos verlo como un producto cartesiano entre matrices.
+
+[Documentación](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+
+```python
+pd.merge(left, right, how='inner', on=None, left_on=None, right_on=None, 
+left_index=False, right_index=False, sort=True, suffixes=('_x', '_y'), copy=True, indicator=False)
+```  
+
+
+
+---
+
+# Merge - Mediante ejemplos <span>&#8544;</span>
+
+```python
+left = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                      'A': ['A0', 'A1', 'A2', 'A3'],
+                      'B': ['B0', 'B1', 'B2', 'B3']})
+
+right = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                    'C': ['C0', 'C1', 'C2', 'C3'],
+                    'D': ['D0', 'D1', 'D2', 'D3']})
+
+result = pd.merge(left, right, on='key')
+```
+
+---
+
+# Merge - Mediante ejemplos <span>&#8545;</span>
+
+```python
+left = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K2'],
+                      'key2': ['K0', 'K1', 'K0', 'K1'],
+                      'A': ['A0', 'A1', 'A2', 'A3'],
+                      'B': ['B0', 'B1', 'B2', 'B3']})
+ 
+right = pd.DataFrame({'key1': ['K0', 'K1', 'K1', 'K2'],
+                      'key2': ['K0', 'K0', 'K0', 'K0'],
+                         'C': ['C0', 'C1', 'C2', 'C3'],
+                         'D': ['D0', 'D1', 'D2', 'D3']})
+
+result = pd.merge(left, right, on=['key1', 'key2'])
+```
+
+---
+
+# Merge 
+
+Tipos de operaciones.
+El "merge-method" es el valor del parámetro HOW
+
+- left. Usa la key izquierda 
+- right. Usa la key derecha
+- outer. Usa la unión de ambas keys
+- inner. Usa la intersección 
+
+```python
+result = pd.merge(left, right, how='left', on=['key1', 'key2'])
+```
+
+
+---
+
+class: center, middle
+# Valores desconocidos
+
+---
+
+# Valores desconocidos
+
+Es frecuente no disponer de algunas muestras o existen datos anómalos en una experimentación o en una gran recopilación de datos.
+
+Por ejemplo, los datos obtenidos a partir de encuestas: preguntas sin responder, preguntas con respuestas "raras", etc.
+
+En Pandas, los valores perdidos se les asigna el código: NaN (Not a Number), los objetos son designados como: None y las fechas como NaT.
+
+Las operaciones que gestionen este tipo de datos también generarán los correspondientes códigos: NaN, None o NaT.
+
+```python
+df = pd.read_csv("who.csv", usecols=["Country","Urban_population_growth"])
+print(df[:5])
+
+print(df.columns[df.isna().any()]) #Columnas con datos NaN
+
+print(pd.notna(df).sum())    #Contamos aquellas muestras con valores conocidos
+print("Total de muestras: ",len(df))
+```
+
+---
+
+# Valores desconocidos
+
+Estos valores pueden alterar los resultados estadísticos. Una de las maneras para reemplazar estos valores es:
+
+```python
+print(df.fillna(0)[:5])
+
+df = df.fillna(0) #inplace
+```
+
+Este reemplazo tan absoluto puede no ser una buena elección. Existen otros métodos de reemplazo: considerando muestras cercanas, valores medios, etc.
+Veamos algunos casos.
+
+---
+
+# Valores desconocidos
+```python
+import numpy as np
+import pandas as pd
+df = pd.DataFrame(np.random.randn(5, 3), 
+                     index=['a', 'b', 'c', 'd', 'e'],
+                     columns=['one', 'two', 'three'])
+print(df)
+df[df<0]=np.nan
+df.iloc[0,0] = np.nan #al menos que haya uno! Cuidado con el aleatorio
+print(df)
+```
+
+Con valores medios:
+```python
+df.fillna(df.mean())
+```
+
+Con valores [interpolados](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.interpolate.html):
+```python
+df.two.interpolate()
+```
+
+---
+
+# Valores desconocidos
+
+También es práctico eliminar aquellas muestras/filas que contengan valores desconocidos:
+
+```python
+df = pd.DataFrame(np.random.randn(5, 3), 
+                     index=['a', 'b', 'c', 'd', 'e'],
+                     columns=['one', 'two', 'three'])
+df[df<0]=np.nan
+
+print(df.dropna())      #filas
+print(df.dropna(axis=1))#columnas
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad  
+
+**Del fichero WHO.csv**
+- Contabiliza cuántos paises tienen algun valor NaN. ¿Cuál es el páis con mayor número de muestras desconocidas?
+
+**Con tres dataframes creados por ti**
+- DF_EMP: El primero estará formado por empleados. Columns= DNI, Nombre, Apellidos, Categoria. SHAPE(4x30) Valores aleatorios!
+- DF_SAL: El segundo contendrá el salario. Columns=selecciona valores de la columna del DNI, Salario. SHAPE(2X30). Puede darse el caso de personas que tengan más de un salario.
+- DF_ENQ: El tercero contendrá encuestas. Columns= selecciona valores aleatorios de la columna Apellido, R1, R2, R3 (Ri son columnas con valores enteros entre 0-10). Shape(4x100). Coge 20 celdas aletorias de Respuestas y asignalas el valor np.NaN
+
+Haz:
+- Crea un dataframe con aquellos empleados que ganen menos de un valor umbral del salario. Tú decides el valor del umbral.
+- ¿Cuál es la frecuencia de participación de una persona en las encuestas?
+
+---
+
+
+background-color: #eeeeee
+class: center, middle
+
+# Fin C2. Bloque 5
+
+
+   <a href="Slides_PandaB6.html">
+        
+  <svg id="face" class="svg-icon" viewBox="0 0 20 20" height="35" width="35" alt="Siguiente Tema">
+    <path fill="#aaaaaa" d="M5.177,17.658c0,0,3.445,1.987,4.823,1.987c2.067,0,4.823-1.987,4.823-1.987c0.024-0.025,0.044-0.054,0.068-0.08H5.109C5.133,17.604,5.153,17.633,5.177,17.658z M8.622,1.583V0.531C6.496,0.973,2.539,2.521,1.376,7.933H0.699c-0.189,0-0.344,0.155-0.344,0.344v1.378C0.354,9.845,0.509,10,0.699,10h0.392c-0.016,0.224-0.026,0.454-0.033,0.689H0.699c-0.189,0-0.344,0.155-0.344,0.344v1.378c0,0.189,0.155,0.344,0.344,0.344h0.439c0.089,0.79,0.262,1.804,0.594,2.849v2.663H4.34c-2.233-2.449-2.264-6.822-2.264-7.01C2.077,4.052,6.353,2.108,8.622,1.583zM10.689,0.354H9.311v2.059h1.378V0.354z M11.378,2.63v0.472H8.622V2.63C6.612,3.147,3.11,4.951,3.11,11.258c0,0,0.004,3.373,1.47,5.632h4.042v-0.689h2.756v0.689h4.042c1.466-2.259,1.47-5.632,1.47-5.632C16.89,4.951,13.388,3.147,11.378,2.63z M5.005,12.035c-0.318-0.364-0.517-0.833-0.517-1.354S4.687,9.69,5.005,9.327V12.035zM6.383,10.026c-0.295,0.078-0.517,0.335-0.517,0.654c0,0.319,0.222,0.576,0.517,0.654v1.395c-0.384-0.032-0.738-0.163-1.033-0.377V9.008c0.296-0.214,0.649-0.345,1.033-0.377V10.026z M7.761,12.353c-0.296,0.214-0.649,0.345-1.033,0.377v-1.395C7.022,11.257,7.244,11,7.244,10.681c0-0.319-0.222-0.576-0.517-0.654V8.631c0.384,0.032,0.738,0.163,1.033,0.377V12.353zM8.105,12.035V9.327c0.318,0.363,0.517,0.833,0.517,1.354S8.423,11.671,8.105,12.035z M10,13.445l-1.378,0.689L10,12.756l1.378,1.378L10,13.445z M11.895,12.035c-0.318-0.364-0.517-0.833-0.517-1.354s0.199-0.991,0.517-1.354V12.035z M13.273,10.026c-0.295,0.078-0.517,0.335-0.517,0.654c0,0.319,0.222,0.576,0.517,0.654v1.395c-0.384-0.032-0.738-0.163-1.033-0.377V9.008c0.296-0.214,0.649-0.345,1.033-0.377V10.026z M14.651,12.353c-0.296,0.214-0.649,0.345-1.033,0.377v-1.395c0.295-0.078,0.517-0.335,0.517-0.654c0-0.319-0.222-0.576-0.517-0.654V8.631c0.384,0.032,0.738,0.163,1.033,0.377V12.353zM14.995,12.035V9.327c0.318,0.363,0.517,0.833,0.517,1.354S15.313,11.671,14.995,12.035z M19.646,9.656V8.278c0-0.189-0.155-0.344-0.344-0.344h-0.678c-1.163-5.413-5.12-6.96-7.246-7.402v1.052c2.269,0.525,6.545,2.469,6.545,9.675c0,0.188-0.031,4.561-2.264,7.01h2.608v-2.663c0.333-1.044,0.505-2.058,0.594-2.849h0.439c0.189,0,0.344-0.155,0.344-0.344v-1.378c0-0.189-0.155-0.344-0.344-0.344h-0.359c-0.007-0.235-0.017-0.465-0.033-0.689h0.392C19.491,10,19.646,9.845,19.646,9.656z"></path>
+
+  </svg>
+  </a>
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

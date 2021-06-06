@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C1-Python</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+ /* file saved to local directory */
+    @import url("gh-fork-ribbon.css");
+    /* alternatively fetch from cdnjs */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css");
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      div.my-header {
+        background-color: #000000;
+        /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#606550), color-stop(0%,#409494), color-stop(0%,#ffffff), color-stop(10%,#ffffff), color-stop(25%,#b3fbb3), color-stop(100%,#008c2e));*/
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 22px;
+        width: 100%;
+        text-align: left;
+      }
+      div.my-header span{
+        color: white;
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        font-size: 16px;
+
+      }
+      div.my-footer {
+        /*border-top: 1px solid #ccc;*/
+        font-size: 8pt;
+        text-align: left;
+        position: fixed;
+        bottom: 0px;
+        left: 10px;
+        /*height: 30px;*/
+        /*width: 100%;*/
+      }
+
+      div.my-footer p {
+      /*    margin-top: 10px;
+          height: 30px;*/
+          margin-bottom: 0px;
+      }
+      div.my-footer img {
+        vertical-align:middle;
+      }
+
+      img.alt {
+        width: 100px;
+      }
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+        margin-left: 10px
+      }
+
+      .work{
+        float: right;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        margin-right: -5px;
+      }
+
+      #colorani path{
+        animation: mycolor 4s;
+        /*animation-iteration-count: infinite;*/
+      }
+        @keyframes mycolor {
+          0% { fill:#ffff4d; }
+          10% { fill:#e6e600; }
+          20% { fill:#cccc00; }
+          30% { fill:#b3b300; }
+          40% { fill:#999900; }
+          50% { fill:#808000; }
+          60% { fill:#666600; }
+          70% { fill:#4d4d00; }
+          80% { fill:#333300; }
+          90% { fill:#1a1a00; }
+          100% { fill:#000000; }
+        }
+
+
+
+        a:before,
+        a:after, #face {
+          animation: glow-grow 8s ease-out;
+        }
+
+        @keyframes glow-grow {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.);
+            opacity: 1;
+          }
+        }
+
+          .var {
+                font-family: 'Dosis';
+                font-weight: normal;
+          }
+
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+ <div class="my-header">
+
+    <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Python en profundidad</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
+
+    <span>C1. Duck style</span>
+
+ 
+ </div>
+ <div class="my-footer">
+    <p> 2021 - Isaac Lera </p>
+ </div>
+
+---
+class: center, middle
+# C1. Introducción a Python 
+### - II parte - 
+---
+
+# Objetos en Python: *Classes*
+
+Los objetos en Python pueden tener la misma *naturalidad* que los métodos incorporados (*built-in*) del propio *core*, pero no está implementada la rigurosidad de herencia como ocurre en otros lenguajes.
+
+Una clase proporciona un medio donde englobar datos y funcionalidades. Permite instanciar dichas clases y definir métodos para alterar su estado.
+
+
+```python
+class MyClass:
+  """ Esto es una clase """
+  i = 0 
+
+  def f(self):
+    return "Hola!"
+
+  def h(self):
+    return self.i*2
+```
+
+.var[self] representa a la misma clase; para acceder a sus atributos y métodos.
+
+En Python, **NO** es necesario implementar métodos get/set de una variable. 
+
+???
+
+quitar el self. del f() y explicar su necesidad
+Por comodidad ejecutarlo en Spyder.
+c.\_\_doc\_\_
+
+
+---
+
+# Inicialización de clases
+
+La inicialización de variables en una clase es através de métodos *double underscore*:   \_\_init\_\_ 
+
+```python
+class Carta:
+  
+  size = (10,20)  #variables compartidas entre instancias 
+  color = []      
+
+  def __init__(self,palo,figura):   #la inicialización se ubica en __init__
+   self.palo = palo     #vars. de la propia instancia
+   self.fig  = figura
+
+```
+---
+
+# Variables privadas en clases
+
+¿Cómo definir una variable privada? Dos opciones:
+- A) *single*  "\_"
+- B) *double* underscore  "\_\_"
+
+```python
+class Carta:
+  
+  def __init__(self,palo,figura):
+   self.__id  = hash(palo)+hash(figura) # variable privada??? Sí/No?
+   self.palo = palo     
+   self.fig  = figura
+
+  def __info(self): # método privado ?
+   print("Info...", self.__id)
+
+  def getID(self):
+   print(self.__id)
+
+```
+
+---
+
+# En Python no existen variables/métodos privados. 
+
+# Double underscore methods son para ofrecer libertad/flexibilidad.
+
+# ¿Es \_\_init\_\_ privado? No, pues eso.
+
+```python
+a = Carta(1,2)
+print(a.__dict__)
+print(a._Carta__id)
+```
+
+[Raymond Hettinger explanation](https://www.youtube.com/watch?v=HTLu2DFOdTg&t=1988s)
+
+---
+
+# Herencia
+
+Herencia entre clases
+
+```python
+class Vehiculo:
+  def __init__(self,capacidad =2):
+      self.ruedas      = 0
+      self.motor       = None
+      self.utilizacion = 0
+      self.capacidad   = capacidad
+  
+  def lleno(self):
+      return self.utilizacion == self.capacidad
+```
+```python
+class Bici(Vehiculo):
+    def dePaseo(self):
+        return self.capacidad == 2
+```
+
+Desde una instancia de .var[Bici] podemos acceder a los métodos de .var[Vehiculo]
+
+---
+
+# Herencia
+
+Se pueden reemplazar métodos através de reemplazar la función:
+
+```python
+class Vehiculo:
+  def __init__(self,capacidad =2):
+      self.ruedas      = 0
+      self.motor       = None
+      self.utilizacion = 0
+      self.capacidad   = capacidad
+  
+  def lleno(self):
+      return self.utilizacion == self.capacidad
+```
+
+```python
+class Bici(Vehiculo):
+    def lleno(self):
+        print("BICI")
+        return self.capacidad == 2
+
+```
+
+
+---
+
+# Herencia
+
+El número de atributos también puede extenderse reemplazando la función \_\_init\_\_ y usando el método .var[super()]
+
+```python
+class Vehiculo:
+  def __init__(self,capacidad =2):
+      self.ruedas      = 0
+      self.motor       = None
+      self.utilizacion = 0
+      self.capacidad   = capacidad
+```
+
+```python
+class Bici(Vehiculo):
+    def __init__(self,marca="CAMON"):
+        super(Bici,self).__init__() #ATENCIóN El orden importa
+        self.ruedas = 2             
+        self.motor = False
+        self.marca = marca
+        
+    
+```
+
+---
+
+# Herencia: super()
+
+El método [super](https://docs.python.org/3/library/functions.html#super) funciona como un *proxy* del objeto delegando la llamada a clases padres o gemelas. Esta orden de resolución se denomina *Method Resolution Order* (\_\_mro\_\_).
+
+```python
+print(Bici.__mro__)
+(__main__.Bici, __main__.Vehiculo, object)
+```
+El MRO busca en la secuencia jerarquica el método que puede resolver la llamada. La clase .var[object] es la clase raíz de todas las clases.
+
+Suele ser interesante cuando hay **multiherencia**.
+
+
+---
+
+# Herencia: Secuencia MRO
+
+```python
+class A:
+  def hola(self):
+    print("En_A")
+    print("HOLA_A")
+    print(hasattr(super(),"hola"))
+```
+
+```python
+class B(A):
+  def hola(self):
+    print("En_B")
+    print(hasattr(super(),"hola"))
+    super().hola()
+
+```
+
+```python
+class C(B):
+  def hola(self):
+    print("En_C")
+    print(hasattr(super(),"hola"))
+    super().hola()
+```
+
+```python
+c = C()
+c.hola()
+print(C.__mro__)
+```
+
+---
+
+
+# MultiHerencia
+
+<svg class="svg-icon" height="15" width="18" style="float:right; "viewBox="0 0 20 20">
+  <path fill="red" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+</svg>
+```python
+class A:
+  def __init__(self):
+    self.a = "AAA"
+
+```
+
+```python
+class B(A):
+  def __init__(self):
+    self.b = "BBB"
+    
+```
+
+```python
+class AB(A,B):
+  def __init__(self):
+    super(AB,self).__init__()
+    self.ab = "AAABBB"
+    
+```
+
+```python
+c = AB()
+c.a
+c.b
+c.ab
+```
+El MRO nos indica que ciertas herencias no pueden realizarse.
+
+???
+
+ERROR 
+
+---
+
+# MultiHerencia
+
+```python
+class A:
+  def __init__(self):
+    self.a = "AAA"
+    
+class B:
+  def __init__(self):
+    self.b = "BBB"
+   
+class AB(A,B):
+  def __init__(self):
+    self.ab = "AAABBB"
+    super(AB,self).__init__()
+    
+c = AB()
+c.a
+c.ab
+c.b
+
+print(AB.__mro__)
+(__main__.AB, __main__.A, __main__.B, object)
+```
+
+.var[super] solo hace referencia a la primera clase. Es necesario inicializar el resto si se quieren.
+
+```python
+B.__init__(self) # No es "coherente"!
+```
+---
+
+
+class: center, middle
+
+# Funciones *built-in*
+
+### [Doc](https://docs.python.org/3/library/functions.html#built-in-functions)
+
+
+---
+
+# dir()
+
+Devuelve una lista de atributos y métodos de cualquier objeto.
+
+```python
+class A:
+  def f(self):
+    print("function B")
+
+dir(A)
+dir(A.f)    
+```
+
+---
+
+# Un *doble underscore* es un método *Callable*
+
+- [Modelo de Datos de Python](https://docs.python.org/3/reference/datamodel.html)
+
+- Recurso alternativo del 2012 [Referencia](http://www.siafoo.net/article/57)
+
+Estos métodos pueden asociarse a ciertos tipos de datos (clases, funciones, etc.), por ejemplo, para la representación de objetos a strings.
+
+
+```python
+class A:
+  def __repr__(self):
+      return "Esto lo que quiere ver un desarrollador"
+  def __str__(self):
+      return "Esto es lo que quiere ver el usuario"
+  
+print(A()) # El print busca: "super().__str__"
+```
+
+
+---
+
+# Método: \_\_call\_\_
+
+Una clase que defina el método \__call__ puede ser invocada como una función.
+
+```python
+import random 
+class A:
+  def __init__(self):
+    self.x = random.random()
+    self.y = random.random()
+  def __call__(self,n=0.5):  # acepta argumentos
+    return (self.x+self.y)*n
+
+a,b = A(),A()                
+print(a())
+print(b(2))
+
+print(list(map(a,range(10)))) # Elegante?
+```
+
+---
+
+# Método: \_\_bool\_\_
+
+Convierte el elemento en un booleano
+
+```python
+import random 
+class A:
+  def __init__(self):
+    self.x = random.random()
+  def __bool__(self): 
+    return self.x>0.5
+
+a = A()
+if a :
+   print("a es True")
+else:
+   pritn("a es False")
+
+```
+
+---
+
+# Método: \_\_eq\_\_
+
+Compara si dos instancias son equivalentes
+
+```python
+import random 
+class A:
+  def __init__(self):
+    self.x = random.random()
+  def __eq__(self,other): 
+    return self.x>0.5 and other.x>0.5
+
+a,b,c = A(),A(),A()
+print(a==b)
+print(a==c)
+print(c==b)
+```
+
+---
+
+# ¿Cuál sería el Método: \_\_
+### para devolver la carta de una determinada posición? i.e. a[3]
+
+```python
+import random 
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def pick(self):
+    return random.choice(self.cartas)
+  def shuffle(self):
+      random.shuffle(self.cartas)      
+  def __str__(self):                    #!
+      return "Baraja con %i cartas"%len(self.cartas) 
+  def __repr__(self):                   #!
+      return self.__str__()
+#
+a = Baraja()
+a.shuffle()
+```
+
+
+
+---
+
+# Método: \_\_getitem\_\_ y \_\_len\_\_
+
+```python
+import random 
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def pick(self):
+      return random.choice(self.cartas)
+  def shuffle(self):
+      random.shuffle(self.cartas)
+  def __str__(self):
+      return "Baraja con %i cartas"%len(self.cartas)
+  def __repr__(self):
+      return self.__str__()
+
+  def __getitem__(self,position):   #!
+      return self.cartas[position]
+  def __len__(self):                #!
+      return len(self.cartas)
+
+a = Baraja()
+a.shuffle()
+a[3]
+```
+Disponer del método \__getitem__ da lugar a tener *slicing*:
+```python
+a[3:20]
+```
+
+---
+
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_
+
+Disponer de estos dos métodos produce una clase *Hasheable*, útil para gestionar coherencia en diccionarios y grupos. Se debe de cumplir:
+
+- Si a == b             : hash(a) == hash(b)
+- Si hash(a) == hash(b) : a == b
+- Si hash(a) != hash(b) : a != b
+
+Implementamos el siguiente ejemplo:
+
+```python
+import random 
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+  
+a, b = Baraja(), Baraja()  
+print(a==b)    
+fabricante = {a:"Faisan",b:"Fournier"}
+a.shuffle()
+print(a==b)
+fabricante2 = {a:"Faisan",b:"Fournier"}    
+```
+
+¿.var[a] y .var[b] son iguales?
+
+
+---
+
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_
+
+
+```python
+import random 
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+  def __eq__(self,other):
+     return self.cartas == other.cartas
+
+      
+a, b = Baraja(), Baraja()  
+print(a==b)   
+fabricante = {a:"Faisan",b:"Fournier"} 
+```
+
+En el momento que definimos la igualdad el *hash* puede generarnos conflictos:
+.var[TypeError: unhashable type: 'Baraja']
+
+---
+
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_
+
+
+```python
+import random 
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+  def __eq__(self,other):
+     return self.cartas == other.cartas
+
+  def __hash__(self):
+     hashes = [hash(i+x) for i,x in enumerate(self.cartas)]   # i+x ?
+     # UN UNICO VALOR ?
+
+    
+```
+
+Crear un [hash](https://en.wikipedia.org/wiki/Hash_function) "único" no es fácil: suma? multiplicación? xor? 
+
+
+---
+
+
+
+
+### Break: ¿Cómo aplicar XOR?
+
+¿Cómo aplicar el operador .var[xor] a nuestra lista?
+
+```python
+#Ejemplo
+from operator import xor
+print(xor(1,3))
+print(1^3)
+
+# Manera "tradicional"
+n = list(range(10))
+myhash = n[0]     
+for i in range(1,len(n)):
+    myhash = xor(n[i],myhash)
+print(myhash) 
+
+# "Pythonic way"
+import functools  
+n = list(range(10))
+myhash2 = functools.reduce(xor,n,0)  #!
+print(myhash2) 
+
+```
+[functools](https://docs.python.org/3/library/functools.html)
+
+---
+
+### Break: ¿Cómo aplicar XOR?
+####Rendimiento
+
+El uso de librerías standard mejora, generalmente, el rendimiento:
+
+Probemos lo siguiente con n = 10 y n = 1000?
+
+*Tradicional*
+```terminal
+python3 -m timeit -s "from operator import xor" "n = list(range(10))" "myhash = n[0]" "for i in range(1,len(n)):" " myhash = xor(n[i],myhash)"
+```
+
+*Pythonic*
+```terminal
+python3 -m timeit -s "import functools" "from operator import xor" "n = list(range(10))" "myhash2 = functools.reduce(xor,n,0)"
+```
+
+---
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_
+
+Disponer de estos dos métodos produce una clase *Hasheable*
+
+```python
+import random 
+import functools
+from operator import xor
+
+class Baraja:
+  def __init__(self,size=40):
+      self.cartas = list(range(size))
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+  def __eq__(self,other):
+     return self.cartas == other.cartas
+  def __hash__(self):
+      hashes = [hash(i+x) for i,x in enumerate(self.cartas)]
+      return functools.reduce(xor,hashes,0)
+      
+a, b = Baraja(), Baraja()  
+print(a==b)    
+a.shuffle()
+print(a==b)  
+print("hash(a)==hash(b) : %i == %i "%(hash(a),hash(b)))  
+```
+
+---
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_ (Prueba 1)
+
+Comprobemos los resultados 
+
+```python
+import random 
+import functools
+from operator import xor
+
+class Baraja:
+  def __init__(self,size=40,shuffle=False): #Una pequeña mejora
+      self.cartas = list(range(size))
+      if shuffle: self.shuffle()
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+
+  # def __eq__(self,other):
+  #    return self.cartas == other.cartas
+  # def __hash__(self):
+  #     hashes = [hash(i+x) for i,x in enumerate(self.cartas)]
+  #     return functools.reduce(xor,hashes,0)
+      
+a, b = Baraja(), Baraja()  
+print(a==b)    
+fabricante = {a:"Faisan",b:"Fournier"}
+
+a2, b2 = Baraja(shuffle=True), Baraja()   
+print(a2==b2)    
+fabricante2 = {a2:"Faisan",b2:"Fournier"}
+```
+
+
+---
+
+# Método: \_\_hash\_\_ y \_\_eq\_\_ (Prueba 2)
+
+Comprobemos los resultados 
+
+```python
+import random 
+import functools
+from operator import xor
+
+class Baraja:
+  def __init__(self,size=40,shuffle=False): #Una pequeña mejora
+      self.cartas = list(range(size))
+      if shuffle: self.shuffle()
+  def shuffle(self):
+      random.shuffle(self.cartas)    
+
+  def __eq__(self,other):
+      return self.cartas == other.cartas
+  def __hash__(self):
+      hashes = [hash(i+x) for i,x in enumerate(self.cartas)]
+      return functools.reduce(xor,hashes,0)
+      
+a, b = Baraja(), Baraja()  
+print(a==b)    
+fabricante = {a:"Faisan",b:"Fournier"}
+
+a2, b2 = Baraja(shuffle=True), Baraja()   
+print(a2==b2)    
+fabricante2 = {a2:"Faisan",b2:"Fournier"}
+```
+
+
+---
+
+# Alternativa (>Python3.7)
+
+Como alternativa, podemos definir lo siguiente:
+
+
+```python
+from dataclasses import dataclass
+@dataclass(frozen=True)
+class Baraja:
+   ...
+```
+
+[dataclasses](https://docs.python.org/3/library/dataclasses.html)
+
+---
+
+# Método: \_\_setattr\_\_ 
+
+Cuándo definimos una clase con un atributo y este atributo se le asigna un valor se invoca a \_\_setattr\_\_.
+
+```python
+class A:
+  def __init__(self):
+      self.x = 1
+
+a = A()
+a.x = 10  #Aquí!
+```
+
+Entonces podemos controlar esa asignación:
+
+```python
+class A:
+  def __init__(self):
+      self.x = 1
+  def __setattr__(self,attr,value):
+      print(attr)
+      if attr=="x":
+        self.__dict__[attr] = value * 2 ## Un diccionario con todos los atributos de la clase
+      else:
+        raise AttributeError("Oper. no permitida sobre "%attr)  
+a = A()
+a.x = 10
+print(a.x)        
+```
+
+
+
+
+---
+
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad
+
+Diseña con *clase* el caso siguiente:
+
+- En un supermercado hay **productos**.
+- Cada producto tiene su marca, contenido, precio y fecha de caducidad. 
+- El supermercado tiene un stock de productos. 
+- Dos productos son iguales si su contenido lo es. 
+- Un producto "está caducado" (es falso) si la fecha de caducidad se ha superado. 
+- Cada producto está asociado un proveedor (diccionario externo). 
+- Cada vez que se modifique el precio se ha registrar la hora de su última modificación. 
+
+.var[Nota: Usad al máximo metodos "double". Sed creativos y flexibles con algunas suposiciones.]
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad
+
+- ¿Puede una clase en Python tener un número indeterminado de atributos?¿Los puede crear/instanciar el usuario?
+
+- ¿Existen métodos *double_underscore* para construir una clase en diccionario?
+
+ 
+
+---
+class: center, middle
+# Errores y excepciones
+
+---
+
+# Excepciones
+
+La estructura básica para capturar errores es:
+
+```python
+try:
+  1/0           #importante el tabulado/indexado
+except:
+  print("Error") 
+```
+
+[Listado de excepciones](https://docs.python.org/3/library/exceptions.html#bltin-exceptions)
+
+```python
+try:
+  1/0
+except BaseException:
+  print("Error") 
+```
+
+```python
+try:
+  1/0
+except BaseException as e:
+  print("Error:",e) 
+  print(e.args)
+  print(dir(e))  # Recordemos que podemos usar dir()
+```
+
+---
+
+# Excepciones
+
+La captura puede agruparse y/o estructurarse:
+
+```python
+try:
+  1/0
+except (ArithmeticError, BaseException):
+  print("Error") 
+```
+
+```python
+try:
+  1/0
+except ArithmeticError:
+  print("Error Arimético") 
+except AttributeError as error:
+  print("Generico", error)
+except:
+  print("Cualquier otra ")  
+```
+
+---
+
+# Generación de excepciones
+
+El levantamiento de una excepción se realiza con .var[raise].
+```python
+if True: raise Exception("Hello!")
+```
+```python
+if True: raise ValueError("Error de valor!")
+```
+
+e incluso:
+
+```python
+if True: 
+  try:
+     raise ArithmeticError
+  except ArithmeticError as err: 
+    raise ValueError("My error de valor!") from err #from permite el anidamiento
+```
+
+---
+
+# Definición de excepciones
+
+Para definir una excepción se usa cualquier clase de la [jerarquía](https://docs.python.org/3/library/exceptions.html#bltin-exceptions).
+
+```python
+class MyError(Exception):
+    pass
+
+if True: raise MyError
+```
+
+Podemos personalizar la clase:
+```python
+import random
+class MyError(Exception):
+    def __init__(self, message):
+        self.message = message + " Mundo!"
+        self.coin = random.random()
+    def destroyUser(self):
+        return self.coin<.5
+try:
+    raise MyError("Hello ")
+except MyError as err:
+    print(err.message)
+    if err.destroyUser(): print("boom!")
+
+```
+
+---
+
+# Las excepciones no son siempre errores!
+
+En Python todos los errores son excepciones, pero no todas las excepciones son errores.
+
+Por ejemplo, *sys.stdin* al final del stream/fichero devuelve EOFError.
+
+```python
+try:
+   #algo
+except EOFError:
+   #ok, lo controlamos
+else:
+   #vamos haciendo más de algo
+
+```
+Otro ejemplo:
+```python
+import time
+while True:
+  try:
+    time.sleep(2)
+  except KeyboardInterrupt:  # Al pulsar CTRL+C
+    print("El usuario quiere abortar la ejecución")
+    break
+  else:
+    print("Han pasado 2s más")
+
+print("Salida del While")
+```
+
+---
+
+# Antes de lanzar una excepción podemos: finalizar amigablemente
+
+En python se define el bloque *finally* para permitir un final de ejecución controlado. Por ejemplo, se utiliza para cerrar ficheros, conexiones, logging, etc.
+
+Otro ejemplo:
+
+```python
+try:
+  raise Exception
+finally:
+  print("Cerrando cosas!")
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad
+
+
+Crea un error que gestione los ficheros registrados en una clase. De esa manera, cuando el error se invoque elegantemente podrá volcar las escrituras pendientes (flush) y cerrarlo.
+
+---
+
+class: center, middle
+# Las 7 opciones de llamar objetos
+### *The Seven Flavors of Callable objects*
+
+---
+
+# Las 7 opciones
+
+En la documentación de Python existen 7 maneras de invocar objetos:
+
+- Funciones definidas por el usuario: .var[def] o .var[lambda]
+
+
+---
+
+## funciones lambda
+
+Una función lambda es una función anónima que no guarda estado ([1930 Alzon Church](https://es.wikipedia.org/wiki/C%C3%A1lculo_lambda), [AWS Lambda](https://aws.amazon.com/es/lambda/)). Algunas funciones de python tienen una apróximación a un lenguaje funcional: Prolog, Haskell, Lisp,...
+
+
+```python
+x2 = lambda i : i*i #lambda argumentos : expresion
+print(x2(4))
+
+```
+o
+
+```python
+(lambda i : i*i)(4)
+```
+
+Paso de argumentos:
+
+```python
+replace_text = lambda text,search,repl : text.replace(search,repl) #argumentos
+replace_text("HOLA","H","")
+```
+
+---
+
+## funciones lambda
+
+Lo útil de estas funciones es cuando se usan con otras funciones: *high-order functions*. Funciones como filter() o map() son funciones que aceptan otras funciones como objetos.
+
+Manera tradicional:
+```python
+def x2(x):
+  return x*x
+
+mylist = [2,3,4,5]
+mylist2 = list(map(x2,mylist))  
+```
+
+Más elegante (y mejor rendimiento):
+```python
+mylist = [2,3,4,5]
+mylist2 = list(map(lambda x: x*x, mylist)).    
+
+mylist0 = list(filter(lambda x: (x%2 == 0), mylist2))
+
+from functools import reduce
+mylistA = reduce(lambda x,y: x*y, mylist0)
+
+fs = [lambda x: x%2, lambda x: x%3]
+fs[0](40)
+```
+
+???
+Usamos una función como un objeto cualquiera.
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+## funciones lambda
+
+¿Cómo ordenamos una lista de strings usando como referente el segundo caracter? 
+
+```python
+#entrada
+colores = ["azul","verde","naranja","amarillo"]
+
+#salida
+['naranja', 'verde', 'amarillo', 'azul']
+```
+
+--
+
+
+```python
+colores = ["azul","verde","naranja","amarillo"]
+sorted(colores,key=lambda color: color[1])
+```
+
+---
+
+## funciones lambda
+
+La guía de estilo de Python, PEP8, comenta lo siguiente sobre funciones lambda [fuente](https://www.python.org/dev/peps/pep-0008/#programming-recommendations):
+
+```texto
+Always use a def statement instead of an assignment statement
+that binds a lambda expression directly to an identifier.
+``` 
+
+y como broma -real-:
+
+--
+
+```texto
+Yo he visto cosas que vosotros no creeríais. 
+Atacar naves en llamas más allá de Orión. 
+He visto rayos-C brillar en la oscuridad cerca de la Puerta de Tannhäuser. 
+Funciones lambda de dos líneas. (...)
+```
+
+A tener en cuenta:
+- Valor retornado automaticamente en la finalización de la expresión.
+- No pueden tener \_\_doc\_\_ y no tienen nombre.
+- Sintaxis diferente.
+
+---
+
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+## Actividad 
+
+Con una función lambda ordena la siguiente lista según el número de caracteres:
+
+```python
+colores = ["azul","verde","naranja","amarillo"]
+```
+
+
+---
+
+# Las 7 opciones
+
+En la documentación de Python existen 7 maneras de invocar objetos:
+
+- Funciones definidas por el usuario: .var[def] o .var[lambda]
+
+--
+
+- Built-in funciones: len, str, time, del, ...
+
+--
+
+- Built-in métodos: pop, replace, append, add, ... 
+
+--
+
+- Métodos definidos de una clase (en su body y \_\_dir\_\_)
+
+--
+
+- Classes: \_\_init\_\_, y \_\_new\_\_ . El método \_\_new\_\_ se invoca para crear la instancia.
+
+- Instancia de la clase: \_\_call\_\_
+
+--
+
+- Generador de funciones: **yield**
+
+---
+
+## **yield**
+
+**yield** es un generador de objetos y puede usarse para generar funciones asincronas. 
+
+Basicamente, funciona como un *return*, pero devolviendo el control a la función invocadora, retornando a su vez un generador del valor y manteniendo el estado de la función en el punto donde se suspendió. 
+
+Un **generador** crea elementos bajo demanda.
+
+```python
+for i in range(10): #un generador, no es una lista
+  print(i)
+
+mylista = list(range(10)) 
+
+lista = [x*x for x in range(10)]     # un compresor construye una lista
+listagen = (x**x for x in range(10)) # un generador construye un iterable
+```
+
+---
+
+## **yield**
+
+Através de un ejemplo:
+
+```python
+def expXX(n):
+  for i in range(n):
+    yield i*i
+
+for i in expXX(10):
+  print(i)
+
+myexp = expXX(10)  
+print(next(myexp)) #hago algo 1
+print(next(myexp)) #hago algo 2
+myexplist = list(myexp)
+```
+
+Una clase iterable se puede crear con:  \_\_iter\_\_, \_\_next\_\_
+
+
+---
+class: center, middle
+# Decoradores
+
+
+---
+
+# Decoradores
+
+Un decorador es una función que recibe otra función como argumento.
+
+```python
+def mydecorador(func):
+  print("my decorador")
+  return func
+
+@mydecorador                   # sintaxis @  - Cuando se invoca?
+def funcion():
+  print("HOLA")
+
+# esto es lo mismo
+funcion = mydecorador(funcion) 
+```
+
+Lo interesante de los decoradores es que pueden cambiar el comportamiento de la función decorada y que son invocados inmediatamente cuando el módulo es cargado.
+
+???
+
+llamar a funcion() -
+
+---
+
+# Decoradores
+
+Ejemplo de invocación
+```python
+importanttasks = []
+def registry_task(func):
+  print("Registrando: %s"%func.__name__)
+  importanttasks.append(func)
+  return func
+
+@registry_task 
+def registro():
+  print("Registro")
+
+@registry_task 
+def pago():
+  print("Pago")
+
+def listado():
+  print("Listado")
+
+@registry_task 
+def carrito():
+  print("Carrito")
+
+def run_importanttasks():
+  [f() for f in importanttasks]
+
+run_importanttasks()  
+```
+
+---
+
+# Decoradores
+
+Ejemplo sobre el cambio de control de comportamiento:
+
+```python
+valid_ports = {80,22}   # que era esto?
+def seguro(func):       # decorador
+  def controlPorts(*args): # función dentro del decorador que reemplaza a la función
+    user_ports = set(args)
+    if user_ports.issubset(valid_ports):
+      result = func(*args)# invocación a la función decorada 
+    else: 
+      result = "La función %s no tiene permitido acceso al puerto %i "%(func.__name__,args[0])
+    return result
+  return controlPorts       # Invocación de la función de sustitución
+
+@seguro
+def openNetworkConn(puerto):
+  print("Estableciendo conexión con puerto: %i"%puerto)
+
+openNetworkConn(10)
+openNetworkConn(22)
+```
+
+---
+
+# Decoradores
+
+Los decoradores permiten "vitaminar" funcionalidades. Ejemplo:
+
+```python
+import functools
+
+@functools.lru_cache()         # Cachea peticiones 
+@seguro                        # Más de un decorador
+def openNetworkConn(puerto):
+  print("Estableciendo conexión con puerto: %i"%puerto)
+
+openNetworkConn(10)
+openNetworkConn(22)
+```
+
+Los decoradores pueden aceptar argumentos .var[.lru_cache()] 
+
+---
+
+# Decoradores
+
+Los decoradores permiten el uso de argumentos. Ejemplo:
+
+```python
+def seguro(exception=False):       # decorador parametrizado y argumento
+    def decorador(func):           # el decorador 
+        def controlPorts(*args): # función dentro del decorador que reemplaza a la función
+            user_ports = set(args)
+            if user_ports.issubset(valid_ports) or exception:
+                result = func(*args)# invocación a la función decorada 
+            else: 
+                result = "La función %s no tiene permitido acceso al puerto %i "%(func.__name__,args[0])
+            return result
+        return controlPorts 
+    return decorador
+
+@seguro(exception=True)                        
+def openMysql(puerto):
+  print("Estableciendo conexión con Mysql en Port: %i"%puerto)
+
+@seguro()                        
+def openNetworkConn(puerto):
+  print("Estableciendo conexión con puerto: %i"%puerto)
+  
+openMysql(21)
+openNetworkConn(21)
+```
+
+El objetivo de estos argumentos es cambiar el cómo y los resultados de la función en vez de controlar la activación - cómo es este ejemplo-.
+
+---
+
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad 
+
+Mediante decoradores hay que realizar un maquetador de HTML.
+Cuando se introduzca un texto a una función, ésta ha de devolver el texto entre etiquetas html correspondientes a la propia función:
+
+```html
+h1("Texto") resultado "<h1>Texto</h1>"
+```
+
+Usad al menos un par de etiquetas de html e incluso que haya anidamiento entre etiquetas.
+
+---
+
+# Referencias
+
+- [Clase por Raymond Hettinger](https://www.youtube.com/watch?v=HTLu2DFOdTg)
+- Libro *Fluent Python* Editorial [Oreilly](https://www.oreilly.com/library/view/fluent-python/9781491946237/)
+- Documentación oficial
+
+---
+
+background-color: #eeeeee
+class: center, middle
+
+# Fin C1.
+
+
+   <a href="Slides_Numpy.html">
+        
+  <svg id="face" class="svg-icon" viewBox="0 0 20 20" height="35" width="35" alt="Siguiente Tema">
+    <path fill="#aaaaaa" d="M8.652,16.404c-0.186,0-0.337,0.151-0.337,0.337v2.022c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.022C8.989,16.555,8.838,16.404,8.652,16.404z"></path>
+    <path fill="#aaaaaa" d="M11.348,16.404c-0.186,0-0.337,0.151-0.337,0.337v2.022c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.022C11.685,16.555,11.535,16.404,11.348,16.404z"></path>
+    <path fill="#aaaaaa" d="M17.415,5.281V4.607c0-2.224-1.847-4.045-4.103-4.045H10H6.687c-2.256,0-4.103,1.82-4.103,4.045v0.674H10H17.415z"></path>
+    <path fill="#aaaaaa" d="M18.089,10.674V7.304c0,0,0-0.674-0.674-0.674V5.955H10H2.585v0.674c-0.674,0-0.674,0.674-0.674,0.674v3.371c-0.855,0.379-1.348,1.084-1.348,2.022c0,1.253,2.009,3.008,2.009,3.371c0,2.022,1.398,3.371,3.436,3.371c0.746,0,1.43-0.236,1.98-0.627c-0.001-0.016-0.009-0.03-0.009-0.047v-2.022c0-0.372,0.303-0.674,0.674-0.674c0.301,0,0.547,0.201,0.633,0.474h0.041v-0.137c0-0.372,0.303-0.674,0.674-0.674s0.674,0.302,0.674,0.674v0.137h0.041c0.086-0.273,0.332-0.474,0.633-0.474c0.371,0,0.674,0.302,0.674,0.674v2.022c0,0.016-0.008,0.03-0.009,0.047c0.55,0.391,1.234,0.627,1.98,0.627c2.039,0,3.436-1.348,3.436-3.371c0-0.362,2.009-2.118,2.009-3.371C19.438,11.758,18.944,11.053,18.089,10.674z M5.618,18.089c-0.558,0-1.011-0.453-1.011-1.011s0.453-1.011,1.011-1.011s1.011,0.453,1.011,1.011S6.177,18.089,5.618,18.089z M6.629,13.371H5.474c-0.112,0-0.192-0.061-0.192-0.135c0-0.074,0.08-0.151,0.192-0.174l1.156-0.365V13.371z M8.652,12.521c-0.394,0.163-0.774,0.366-1.148,0.55c-0.061,0.03-0.132,0.052-0.2,0.076v-0.934c0.479-0.411,0.906-0.694,1.348-0.879V12.521z M5.281,10c-1.348,0-1.348-2.696-1.348-2.696h5.393C9.326,7.304,6.629,10,5.281,10z M10.674,12.296c-0.22-0.053-0.444-0.084-0.674-0.084s-0.454,0.032-0.674,0.084v-1.168C9.539,11.086,9.762,11.06,10,11.05c0.238,0.01,0.461,0.036,0.674,0.078V12.296z M12.696,13.146c-0.068-0.024-0.14-0.046-0.2-0.076c-0.374-0.184-0.754-0.386-1.148-0.55v-1.188c0.442,0.185,0.87,0.467,1.348,0.879V13.146zM14.382,18.089c-0.558,0-1.011-0.453-1.011-1.011s0.453-1.011,1.011-1.011c0.558,0,1.011,0.453,1.011,1.011S14.94,18.089,14.382,18.089z M13.371,13.371v-0.674l1.156,0.365c0.112,0.022,0.192,0.099,0.192,0.174c0,0.074-0.08,0.135-0.192,0.135H13.371z M14.719,10c-1.348,0-4.045-2.696-4.045-2.696h5.393C16.067,7.304,16.067,10,14.719,10z"></path>
+    <path fill="#aaaaaa" d="M10,16.067c-0.186,0-0.337,0.151-0.337,0.337V19.1c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.696C10.337,16.218,10.186,16.067,10,16.067z"></path>
+  </svg>
+  </a>
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

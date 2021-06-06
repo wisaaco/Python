@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C1-Python</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+ /* file saved to local directory */
+    @import url("gh-fork-ribbon.css");
+    /* alternatively fetch from cdnjs */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css");
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      div.my-header {
+        background-color: #000000;
+        /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#606550), color-stop(0%,#409494), color-stop(0%,#ffffff), color-stop(10%,#ffffff), color-stop(25%,#b3fbb3), color-stop(100%,#008c2e));*/
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 22px;
+        width: 100%;
+        text-align: left;
+      }
+      div.my-header span{
+        color: white;
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        font-size: 16px;
+
+      }
+      div.my-footer {
+        /*border-top: 1px solid #ccc;*/
+        font-size: 8pt;
+        text-align: left;
+        position: fixed;
+        bottom: 0px;
+        left: 10px;
+        /*height: 30px;*/
+        /*width: 100%;*/
+      }
+
+      div.my-footer p {
+      /*    margin-top: 10px;
+          height: 30px;*/
+          margin-bottom: 0px;
+      }
+      div.my-footer img {
+        vertical-align:middle;
+      }
+
+      img.alt {
+        width: 100px;
+      }
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+        margin-left: 10px
+      }
+
+      .work{
+        float: right;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        margin-right: -5px;
+      }
+
+
+      .bottom-content {
+        position: absolute;
+        top: 90%;
+      }
+
+      #move {
+        animation: shake 8.0s;
+        animation-iteration-count: infinite;
+      }
+
+        @keyframes shake {
+          0% { transform: translate(1px, 1px) rotate(0deg); }
+          10% { transform: translate(-1px, -2px) rotate(-1deg); }
+          20% { transform: translate(-3px, 0px) rotate(1deg); }
+          30% { transform: translate(3px, 2px) rotate(0deg); }
+          40% { transform: translate(1px, -1px) rotate(1deg); }
+          50% { transform: translate(-1px, 2px) rotate(-1deg); }
+          60% { transform: translate(-3px, 1px) rotate(0deg); }
+          70% { transform: translate(3px, 1px) rotate(-1deg); }
+          80% { transform: translate(-1px, -1px) rotate(1deg); }
+          90% { transform: translate(1px, 2px) rotate(0deg); }
+          100% { transform: translate(1px, -1px) rotate(-1deg); }
+        }
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+
+
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+ <div class="my-header">
+
+    <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Introducción a Python</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
+
+    <span>C1. Tipos y estructuras de control en Python</span>
+
+ 
+ </div>
+ <div class="my-footer">
+    <p> 2021 - Isaac Lera </p>
+ </div>
+
+---
+class: center, middle
+# C1. Tipos de variables y estructuras de control
+### - I parte - 
+
+---
+
+
+# Python ...
+
+--
+
+es un lenguaje no tipado. No hay que especificar el tipo de variable al definirla.
+```python
+a = 20
+a = "Hola"
+```
+
+--
+
+al ser no tipado, ofrece una programación más dinámica.
+```python
+for i in range(10):
+  print(i*10.0)
+```
+
+--
+
+al ser no tipado, se ha de controlar mejor la **documentación y la coherencia.**
+
+--
+
+[**PEP 8**](https://realpython.com/python-pep8/)
+> is a document that provides guidelines and best practices on how to write Python code. It was written in 2001 by Guido van Rossum, Barry Warsaw, and Nick Coghlan. 
+
+<svg class="svg-icon" height="15" width="18" style="float:right; "viewBox="0 0 20 20">
+  <path fill="red" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+</svg>
+```python
+O = 0
+I = 1
+```
+
+---
+
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Tipos simples
+
+<!-- - Entero: 0,4,5,-1,54909
+- Decimal: 3.1416, 0.34, -204.5
+- Booleano: True, False
+- Carácter: 'a','b','c',... -->
+
+<svg class="svg-icon" height="30" width="30" style="float:right; "viewBox="0 0 20 20">
+    <path fill="orange" d="M14.9,6.707c-0.804-2.497-3.649-4.351-7.035-4.351c-4.008,0-7.27,2.594-7.27,5.782
+    c0,2.163,1.516,4.133,3.903,5.122v3.091c0,0.251,0.144,0.478,0.372,0.586c0.087,0.042,0.182,0.062,0.276,0.062
+    c0.148,0,0.295-0.051,0.412-0.15l3.678-3.038c0.14-0.022,0.275-0.057,0.413-0.084c0.655,0.666,1.544,1.185,2.607,1.46
+    c0.198,0.051,0.401,0.094,0.608,0.125l2.641,2.182c0.118,0.099,0.264,0.15,0.413,0.15c0.094,0,0.188-0.02,0.276-0.062
+    c0.228-0.108,0.372-0.335,0.372-0.586v-2.135c1.74-0.761,2.84-2.231,2.84-3.846C19.405,8.862,17.456,7.073,14.9,6.707z
+     M8.885,12.552c-0.019,0.003-0.032,0.018-0.051,0.022c-0.101,0.022-0.2,0.056-0.281,0.123l-2.76,2.28v-2.161
+    c0-0.275-0.175-0.521-0.434-0.612C3.253,11.467,1.89,9.871,1.89,8.138c0-2.474,2.68-4.487,5.975-4.487
+    c2.604,0,4.801,1.265,5.617,3.014c0.187,0.401,0.302,0.823,0.33,1.268c0.005,0.069,0.028,0.134,0.028,0.205
+    c0,1.819-1.481,3.438-3.706,4.129c-0.115,0.037-0.224,0.08-0.343,0.111C9.497,12.455,9.196,12.513,8.885,12.552z M15.703,13.809
+    c-0.259,0.091-0.434,0.336-0.434,0.612v1.199l-1.723-1.422c-0.095-0.079-0.211-0.129-0.333-0.144
+    c-0.219-0.028-0.431-0.068-0.636-0.121c-0.545-0.14-1.023-0.364-1.433-0.64c2.423-0.969,3.99-2.942,3.99-5.155
+    c0-0.024-0.004-0.047-0.005-0.071c1.718,0.385,2.98,1.553,2.98,2.948C18.11,12.202,17.165,13.299,15.703,13.809z"></path>
+  <path fill="orange" d="M4.68,7.591h6.167c0.358,0,0.648-0.29,0.648-0.648s-0.29-0.648-0.648-0.648H4.68
+    c-0.358,0-0.648,0.29-0.648,0.648S4.323,7.591,4.68,7.591z"></path>
+  <path fill="orange" d="M8.709,8.636H4.68c-0.358,0-0.648,0.29-0.648,0.648c0,0.358,0.29,0.648,0.648,0.648h4.028
+    c0.358,0,0.648-0.29,0.648-0.648C9.356,8.926,9.067,8.636,8.709,8.636z"></path>
+</svg>
+```python
+counter = 2.    #Entero
+counter = 0.1   #Decimal
+counter = "a"   #Carácter 
+counter = True  #Booleano
+counter = 3j    #Complejo
+
+counter = int() #los constructores están... 
+counter = float()
+counter = str()
+counter = bool()
+counter = complex()
+
+type(counter)
+isinstance(3,int) #en python3
+
+counter = .2
+print(counter)
+print("El tipo de counter: " + type(counter))
+print("El valor de counter: " + str(counter))
+print("El valor de counter: %i" %counter)
+print("El valor de counter %f y su inversa %f" %(counter,1/counter))
+print("El valor de la inversa %0.2f" %(1/counter))
+```
+
+---
+
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+## Operadores lógicos
+- Comparaciones: >,<,>=,<=,!=,
+- Lógicos: and, or,  not
+- Pertenecencia: in 
+
+## Operadores binarios
+- Binarios: &, |, ^ (xor), ~(not), >> (right shift), << (left shift)
+
+## Operadores aritméticos
+- +, -, *, /
+- % modulo, 24%6=0
+- \*\* exponente, 5**2=25
+- // división entera, 88//5 = 17
+
+---
+
+# Control de flujo con: *if ... elif ... else*
+
+```python
+if <expresión lógica> :
+  bloque tabulado
+elif <expresión lógica>: #opcional
+  bloque tabulado
+else:                    #opcional
+  bloque tabulado
+bloque de código siguiente
+```
+- No es necesario utilizar paréntesis en la condición al no ser que la expresión lo requiera.
+- En los controles de flujo no hay llaves, ni nada por el estilo (JAVA,C,....) 
+- El código pertenece al bloque si está *tabulado/sangrado*
+ 
+
+#### Setencia *If* - Operador ternario
+```python
+a = 0 if i<10 else -1
+```
+#### Operador: *pass*
+```python
+if x==3
+  pass
+else:
+  #do something
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+
+Escribe una expresión que permita determinar si un valor de tipo entero positivo puede corresponder a un año bisiesto. Se
+considera bisiesto un año cuyo número es divisible por cuatro excepto los años que son múltiplos de cien a no ser que lo sean de 400.
+
+```python
+year = 321
+
+#TODO
+
+```
+
+???
+```python
+year = 300
+
+if year%4==0 and not (year%100==0 and not year%400==0):
+    print("Año %i es bisiesto"%year)
+else:
+    print("No lo es! %i"%year)
+```
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Listas I
+
+Una lista es una **clase** para secuenciar objetos
+
+```python
+lista = []
+lista = list()
+type(lista)
+
+lista = [2,3,4,6,7,3,3]
+lista = ["ab",3,5.3,False]
+lista = [0]*10
+```
+
+#### Operaciones sobre listas:
+```python
+lista[0]             #Acceso por índice
+lista.append("3")    #Insercción al final 
+lista = lista+["3"]  #Concatenación de listas
+lista.pop(0)         #Substrae el elemento indexado
+lista.remove(3)      #Elimina el primer elemento por su valor 
+```
+
+---
+
+# Listas II - Métodos preexistentes/builtin
+
+Ciertos tipos de datos tienen funciones comunes en Python y una lista es una **secuencia** de objetos: (índices y valores).
+
+```python
+len(lista)           #Devuelve la longitud
+str(lista)           #Devuelve su presentación en formato string
+lista[0:3]           #Slicing - Selección de elementos por rango
+3 in lista           #Devuelve Booleano si el elemento está en la lista
+```
+
+**Duck programming style**!
+---
+
+# Listas III - Métodos preexistentes/builtin
+
+
+###[sorted](https://docs.python.org/3/howto/sorting.html)
+
+```python
+colors = ["Verde","Azul","Rojo","Amarillo"]
+sorted(colors)
+colors 
+```
+
+```python
+colors = ["Verde","Azul","Rojo","Amarillo"]
+sorted(colors,reverse=True)
+sorted(colors,key=len)
+```
+###[sort](https://www.w3schools.com/python/ref_list_sort.asp)
+Orden *in place*
+```python
+colors.sort()
+```
+
+---
+
+# Recorridos con *for*
+Un *for* está diseñado para iterar sobre **secuencias**
+
+```python
+for <elemento> in <secuencia>:
+  bloque tabulado
+bloque de código siguiente
+```
+
+```python
+colores = ["azul","verde","rosa"] 
+for color in colores:
+  if color == "verde":
+      break
+  print(color)
+
+#Visibilidad de las variables
+for c in color: #Después del primer for, color está definido!
+  print(c)
+```
+ 
+
+```python
+colores = ["azul","verde","rosa"] 
+for ix,color in enumerate(colores): #método builtin
+  print("En la pos %i esta el valor %s"%(ix,color))
+```
+
+
+---
+
+# Listas IV - *Compresor de lista*
+
+Manera `tradicional` haríamos:
+```python
+abc = "abcdef"
+ABC = []
+for item in abc:
+  ABC.append(item.upper()) #upper() y lower() métodos buildin de str.
+```
+
+Usando **compresores de lista** generamos un codigo más legible y rápido.
+
+```python
+abc = "abcdef"
+ABC = [item.upper() for item in abc]
+```
+
+Otro ejemplo, un producto cartesiano:
+
+```python
+naipes = [1,2,3,4,5,6,7,"Sota","Caballero","Rey"]
+palos = ["Oros","Copas","Espadas","Bastos"]
+barajaCompleta = [(naipe,palo) for palo in palos for naipe in naipes]
+barajaFiguras = [(naipe,palo) for palo in palos for naipe in naipes if isinstance(naipe,str)]
+```
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+
+Dadas dos listas:
+```python
+listaA = ["a","b","d","e"]
+lista1 = [1,2,3,4,5]
+```
+
+
+- ¿Cómo mostrarías el último elemento de la listaA?
+
+- ¿Cómo insertarías la 'c' en su posición ordenada en la listaA?
+
+- Crea una nueva lista conteniendo solo los valores pares de la lista1.
+
+- Imprime todas las posibles combinaciones entre los elementos de ambas listas (solo imprimir!)
+
+
+
+???
+listaA[-1]
+
+listaA = listaA[:2]+["c"]+listaA[2:]
+
+listaPares = [x for x in lista1 if x%2==0]
+
+for item in ('%s %s' % (a, b) for a in listaA for b in lista1): 
+    print(item)
+
+
+---
+
+# Bucles *while*
+
+```python
+while <expresion logica>:
+  bloque tabulado
+bloque siguiente de instrucciones
+```
+
+### Metodo *range*
+```python
+#range(start,end,step)
+range(0,10)
+range(0,10,2)
+range(9,-1,-1)
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+
+Crear una expresión que indique si que dos palabras dadas son un palíndromo.
+```python
+words0 = "cucu"        #no
+words1 = "amorroma"    #sí, lo es
+words2 = "anulaaluna"  #sí
+```
+
+Mayor reto, usando frases.
+<svg class="svg-icon" height="30" width="30" style="float:right; "viewBox="0 0 20 20">
+  <path fill="orange" d="M4.68,13.716v-0.169H4.554C4.592,13.605,4.639,13.658,4.68,13.716z M11.931,6.465
+  c-0.307-0.087-0.623,0.106-0.706,0.432l-1.389,5.484c-0.901,0.084-1.609,0.833-1.609,1.757c0,0.979,0.793,1.773,1.773,1.773
+  c0.979,0,1.773-0.794,1.773-1.773c0-0.624-0.324-1.171-0.812-1.486l1.377-5.439C12.422,6.887,12.239,6.552,11.931,6.465z
+  M10.591,14.729H9.408v-1.182h1.183V14.729z M15.32,13.716c0.04-0.058,0.087-0.11,0.126-0.169H15.32V13.716z M10,3.497
+  c-3.592,0-6.503,2.911-6.503,6.503H4.68c0-2.938,2.382-5.32,5.32-5.32s5.32,2.382,5.32,5.32h1.182
+  C16.502,6.408,13.591,3.497,10,3.497z M10,0.542c-5.224,0-9.458,4.234-9.458,9.458c0,5.224,4.234,9.458,9.458,9.458
+  c5.224,0,9.458-4.234,9.458-9.458C19.458,4.776,15.224,0.542,10,0.542z M15.32,16.335v0.167h-0.212
+  c-1.407,1.107-3.179,1.773-5.108,1.773c-1.93,0-3.701-0.666-5.108-1.773H4.68v-0.167C2.874,14.816,1.724,12.543,1.724,10
+  c0-4.571,3.706-8.276,8.276-8.276c4.57,0,8.275,3.706,8.275,8.276C18.275,12.543,17.126,14.816,15.32,16.335z"></path>
+</svg>
+```python
+words3 = "ella te da detalle" #sí
+words4 = "oso baboso"         #sí
+words5 = "osXso"              #sí o no 
+words6 = "ox ox"              #no
+```
+
+???
+```python
+word = words6
+si = 0
+ei = len(word)-1
+while word[si]==word[ei] and si<len(word) and si<ei:
+    print("%s == %s"%(word[si],word[ei]))
+    si+=1
+    ei-=1
+    if word[si] == " ":
+        si+=1
+    if word[ei] == " ":
+        ei-=1
+    
+if si >= ei:
+    print("Word \"%s\" is PALI"%word)
+else:
+    print("Word \"%s\" NO lo es "%word)
+```
+---
+
+# Store sequences
+
+- strings 
+- listas
+- range objets
+
+- byte sequences
+- byte arrays
+
+- tuples
+
+
+```python
+x = bytes('Hola camión', 'utf8')
+print(x)
+
+ix = b'Hola cami\xc3\xb3n'
+print(ix.decode())
+```
+
+---
+
+# Tuplas
+
+Una *tuple* es una colección de objetos. Se define con paréntesis. Útiles para el empaquetado de información. Son objetos inmutables.
+
+```python
+carta = ("naipe1","paloOros")
+type(carta)
+print(carta[0])
+print(carta[1])
+naipe,palo = carta
+naipe,_ = carta     #!
+
+carta[0] = "naipe2" #!
+
+majorcaAt = (2.660690,39.591579) #long,lat
+long,lat = majorcaAt 
+```
+
+Diversas funciones devuelven tuplas:
+```python
+a,b,*rest=range(10) #python3
+a,*rest,c=range(10) #python3
+
+divmod(25,5)
+t = (30,4)
+divmod(*t) #ALERTA!
+```
+
+---
+
+# Diccionarios *dict*
+
+Un diccionario es una colección (una *secuencia*) no ordenada de pares: clave, valor. A diferencia de las listas, indexamos el contenido del diccionario mediante las claves (en Python3.7+).
+
+Un diccionario es... similar a Hashmap (Java), un **JSON**.
+
+```python
+agenda = {}
+agenda = dict()  #tipado
+agenda = {"ana":923980,"pepe":230294,"bella":123094}
+agenda.keys()
+agenda.values()
+agenda = dict.fromkeys(['a', 'b'], 0)
+```
+
+[Operaciones](https://www.w3schools.com/python/python_ref_dictionary.asp):
+```python
+agenda["isaac"]=4923034  #Añadir elemento
+agenda["isaac"]=0        #Añadir elemento: sustituye el valor
+del agenda["pepe"]       #Borrar elemento
+"isaac" in agenda        #Comprobar la existencia  
+"isaac" in agenda.keys()  
+"isaac" in agenda.values()
+len(agenda)              #Número de elementos
+
+```
+---
+
+# Diccionarios *dict* II
+
+```python
+d = dict([("zero",0),("one",1)])
+
+number = [0,1,2,3]                  # equiv. a range(4)
+name = ["zero","one","two","three"]
+d = dict(zip(number,name))          # zip() - agrega iterables en una tupla
+
+postal = [("07015","Genova"),("07120","Son Sardina"),("07009","Son Cladera")]
+areas = {name:code for code,name in postal} # compresiones 
+
+for name,code in areas.items():     # unpacking
+  print(name,code)
+
+#nesting
+d = {'name': {'first': 'J', 'last': 'M'}, 'jobs': ['dev', 'tech'],'age': 40}
+
+d["name"]["first"]
+d["jobs"].append("prog")
+```
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+
+A) Construye un diccionario que permita traducir de texto a **código morse**.
+
+
+```python
+morseABC = [".-","-...","-.-.","-..",".","..-."] # A..F
+
+traducir = "abdfeadb"
+
+```
+
+
+B) Crea un programa que dada una línea de texto, contabilice la **frecuencia** de palabras.
+
+
+```python
+contar = "a ba a bb a ba b b b a aa"
+
+```
+
+#### Observación:
+Estas funcionalidades pueden realizarse con métodos como map o Counter, lo veremos próximamente.
+
+???
+```python
+morseABC = [".-","-...","-.-.","-..",".","..-."]
+chars = "abcdef"
+morseMap = { chars[i]:morseABC[i] for i in range(len(morseABC))}
+
+traducir = "abdfeadb"
+out = [morseMap[c] for c in traducir]
+```
+
+## el segundo
+```python
+frec = {}
+for word in contar.split(" "):
+    if not word in frec:
+        frec[word]=1
+    else:
+        frec[word]+=1
+```
+
+---
+
+
+# Grupos *Set* 
+
+Un grupo es una colección unica de objetos.
+
+```python
+g = set()              # definicion
+
+
+tags = ["a","br","p","p","a","body"]
+g = set(tags)
+
+g.add("img")           # añadir elemento
+g.remove("p")          # eliminar elemento
+e = g.pop()            # retirar un elemento
+```
+Operaciones
+```python
+g1 = set(["a","b","c"]) #una lista
+g2 = {"a","d","e"}      #unos elementos
+g3 = {"a"} 
+g = {} #!
+
+print(g1.intersection(g2))
+print(g1.union(g2))
+print(g1.difference(g2))
+print("a" in g1)
+print(g3 < g1)
+print(g3 > g1)
+```
+
+---
+
+# ¿Por qué funcionan los diccionarios ? 
+
+### keys son objetos hashable 
+- Soportan la función **hash()**, devuelve el mismo valor a lo largo de la vida del objeto.
+- Soporta igualdad usando el método **eq()**.
+- Si a == b es True, entonces hash(a) == hash(b) también debería de serlo. 
+- hash() y eq() son built-in métodos. Curso siguiente! 
+
+
+### Rendimiento
+```console
+$ python -mtimeit -s'empty=range(7)' '23 in empty'
+1000000 loops, best of 3: 0.318 usec per loop
+$ python -mtimeit -s'empty=tuple(range(7))' '23 in empty'
+1000000 loops, best of 3: 0.311 usec per loop
+$ python -mtimeit -s'empty=set(range(7))' '23 in empty'
+10000000 loops, best of 3: 0.109 usec per loop
+$ python -mtimeit -s'empty=dict.fromkeys(range(7))' '23 in empty'
+10000000 loops, best of 3: 0.0933 usec per loop
+```
+
+Fuentes [1](https://doughellmann.com/blog/2012/11/12/the-performance-impact-of-using-dict-instead-of-in-cpython-2-7-2/), [2](https://stackoverflow.com/questions/1418588/how-expensive-are-python-dictionaries-to-handle)
+---
+
+class: center, middle
+
+# Funciones y argumentos
+
+---
+
+#Funciones
+
+Definición de funciones y argumentos
+
+```python
+def nombre(<argumentos>):
+   bloque tabulado
+
+```
+
+Ejemplo:
+```python
+def factorial(n):
+   '''returns the n! of a number'''
+   return 1 if n<2 else n*factorial(n-1)
+
+factorial(5)
+```
+
+--
+
+¿Qué podemos deducir de esto?
+```python
+type(factorial)
+help(factorial).  # al pulsar la tecla 'q' salimos del entorno de ayuda          
+factorial.__doc__ # lo veremos próximamente
+dir(factorial)    # posibles atributos de una función
+```
+
+--
+
+La función factorial es una instancia de una *function class*.
+
+
+---
+
+#Funciones
+
+La diferencia entre una función y un procedimiento es la existencia del comando *return*
+
+```python
+def procedimiento(n):  
+   pass
+
+def funcion():
+   return None
+```
+
+---
+
+#Argumentos
+
+
+```python
+def htmlTag(name,id,clase,content):
+  ''' returns a html statement'''
+  return "<%s id=\"%s\" class=\"%s\">%s</%s>"%(name,id,clase,content,name)
+
+```
+Argumentos posicionales y por defecto/keyword
+```python
+def saludo(name,msg="Toni"):  #1 argumento posicional y 1 argumento por keyword
+  return "Felicidades %s!, de parte de %s"%(name,msg)
+
+saludo("Luis","Juan")
+saludo("Luis",msg="Juan")
+saludo("Luis")
+saludo(name="Luis")
+saludo(msg="Juan",name="Luis")
+```
+
+Argumentos posicionales no pueden ir después de argumentos por keyword
+<svg class="svg-icon" height="15" width="18" style="float:right; "viewBox="0 0 20 20">
+  <path fill="red" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+</svg>
+```python
+def saludo(msg="Toni",name):     
+  return "Felicidades %s!, de parte de %s"%(name,msg)
+```
+
+---
+
+# Non-keyword arguments: `*args
+Lista de argumentos variable sin keyword
+```python
+def saludo(*items):
+   for item in items: print("Hola %s"%item)
+
+saludo("Maria","Luis")  
+```
+
+```python
+def saludo(name,*items):
+   print("primero:",name)
+   for item in items: print("others: ",item)
+
+saludo("Juan","Maria","Luis")  
+```
+
+En este caso, el arg. *ultimo* ha de ser pasado con keyword.
+```python
+def saludo(primero,*intermedios,ultimo):
+   print("primero:",primero)
+   print("items:",intermedios,type(intermedios)) #¿Qué tipo es?
+   print("ultimo:",ultimo)
+
+saludo(1,2,3,ultimo=4)  # Ok
+saludo(1,2,3,4)         # Error
+saludo(1,ultimo=4)      # Ok o Error?
+saludo(ultimo=4)        # Ok o Error?
+```
+
+
+---
+
+#Keyword arguments: `**Kwargs
+
+Una lista de argumentos variable con keyword.
+```python
+def funcion(**args):
+   print(type(args))                  # ¿Qué tipo es?
+   for key,value in args.items():
+       print(key,value)
+
+funcion(tag="img",href="url",alt="logo")  # Ok
+funcion(tag="img")                        # Ok o Error?
+funcion("img")                            # Ok o Error?
+```
+
+---
+
+#Argumentos. Consciencia de los parámetros.
+```python
+def botonPanico(codigoA,codigoB,destruccion=False):
+  ''' Destruye información si ambos codigos no coinciden... '''
+  if destruccion or codigoA != codigoB:
+    print("BOOM!")
+  else:
+    return "Ok"
+
+botonPanico(0,1)               # Ok o BOOM! ?
+botonPanico(1,1)               # Ok o BOOM! ?
+botonPanico(1,1,True)          # Ok o BOOM! ?
+botonPanico(destruccion=True)  # Ok o BOOM! ?
+botonPanico(10,10,3)           # Ok o BOOM! ?
+```
+
+--
+
+Forzar la insercción de keywords-args (solo Python3):
+```python
+def botonPanico(codigoA,codigoB,*,destruccion=False):       
+  if destruccion or codigoA != codigoB:
+    print("BOOM!")
+  else:
+    return "Ok"
+
+botonPanico(0,1)               # Ok o BOOM! ?
+botonPanico(1,1,True)          # Ok o BOOM! ?
+botonPanico(0,4,destruccion=True)  # Ok o BOOM! ?
+botonPanico(10,10,3)           # Ok o BOOM! ?
+```
+
+
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+¿Qué firma (*signature*) es válida?
+```python
+def funcionA(a,b,*c,d=None,**args):
+def funcionB(a,b,*c,d=None,**args):
+def funcionC(a,*,*c,d=None,**args):
+def funcionD(a,**args,d=None):
+def funcionE(a,**args,*c):
+def funcionF(a,**args,*c):
+def funcionG(a,*c,**args,):
+def funcionH(*c,**args):
+def funcionI(*):
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad
+
+Crear una función recursiva que calcule los *n* valores de la serie de Fibonacci y los guarde en una lista. 
+
+La serie de Fibonacci se define como f<sub>n</sub>= f<sub>n-1</sub> + f<sub>n-2</sub> donde f<sub>0</sub>=0 y f<sub>1</sub>=1.
+
+La función ha de contener un argumento númerico opcional para abortar el cálculo cuando la suma alcance dicho valor.
+
+
+???
+
+```python
+def fib(n):
+    if n<=1: 
+        return n
+    else:
+        return fib(n-1)+fib(n-2)
+
+def fibList(n):
+    return [fib(i) for i in range(n)]
+
+def fibList(n,abort=None):
+    res = []
+    for i in range(n):  
+        val = fib(i)
+        if abort != None and val>=abort:
+            break
+        else:
+            res.append(val)
+    return res
+
+fibList(10,abort=13)
+fibList(10)
+```
+
+---
+
+# Argumentos
+El paso de argumentos (`*args,`**kwards) permite que los programas se puedan construir durante ejecución (al estilo Javascript).
+
+En javascript podemos concatenar funciones (+/-), por ejemplo:
+```javascript
+  app.get( //definición de un API route en backend con javascript
+    "/data/:time",  //url
+    [authJwt.verifyToken,cacheRedis.checkCache], //Todas son funciones sobre el resquests
+    dataCtrl.getByTime //última función
+  );
+
+```
+En python:
+```python
+def mylog(func,*args,**kargs):
+  print("Run function: ",func.__name__)
+  return func(*args,**kargs)
+
+def suma(a,b,c=0):
+  return a+b+c
+
+print(mylog(suma,2,4,c=5))
+```
+
+---
+
+#Argumentos y referencias
+
+Dentro de una función hay visibilidad local para los objetos **inmmutables**, pero no para objetos **mutables**, como listas y diccionarios.
+
+```python
+def change(a,b):
+  a=-1
+  b[0]="Hi"
+
+ga = 1
+gb = [0,1]
+change(ga,gb)
+print(ga,gb)   #¿Qué valores cambiaron?
+```
+
+
+---
+
+class: center, middle
+
+# Librerías y environments?
+
+???
+Explicar environment dependerá del nivel
+---
+
+# Librerías
+Código *útil* que aglutina funciones para una finalidad específica. Existe una multitud de librerías:
+- [Propias de Python](https://docs.python.org/3/library/)
+- De terceros
+  - https://www.techbeamers.com/top-python-libraries-data-science/
+  - http://www.techgeekbuzz.com/top-python-libraries/
+  - [Para NLP](https://towardsdatascience.com/python-libraries-for-natural-language-processing-be0e5a35dd64)
+  - [Bokeh](https://bokeh.org/), [Keras](https://keras.io/), [OpenAI](https://openai.com/),...
+  - Numpy, Pandas, Scikit-learn
+
+- Cada librería se **importa** para ser usada entera o por partes. 
+
+```python
+import random       #Importamos toda la librería
+print(random.sample(range(10),5))
+
+import numpy as np  #¿está instalada?
+print(np.random.randint())
+
+import keras        # instalada? dependencias: Tensorflow?
+```
+---
+
+background-image: url(img/python_environment.png)
+## Instalación de librerías
+
+
+<span class="bottom-content">
+[Imagen](http://andrewsforge.com/article/python-new-package-landscape/)
+</span>
+
+
+???
+Comentar mi "instalación":
+pip --version
+pip list
+python2 -m pip list | wc -l
+
+---
+
+## Instalación de librerías: *pip*
+
+##### Por defecto, *pip* ya viene instalado: [https://pip.pypa.io/en/stable/installing/](https://pip.pypa.io/en/stable/installing/)
+
+Su funcionamiento es sencillo. Al instalar un paquete también se instalan sus dependencias.
+```terminal
+pip install numpy
+```
+
+Ahora ya podemos usar esa librería en nuestro scripts:
+```python
+import numpy as np
+l = np.zeros(10)
+print(l)
+```
+
+Si conviven varios cores de python (2.7 y 3.+), la instalación depende del core. Por ejemplo:
+```terminal
+python3 -m pip install numpy #Linux y MacOS
+py -m pip --version          #Windows
+```
+
+
+---
+
+# *pip*
+
+Con *pip* podemos ver que paquetes tenemos instalados:
+
+```terminal
+pip list
+pip freeze
+```
+
+--
+
+Los paquetes suelen tener dependencias entre ellos, sobre todo librerías complejas: Networkx, Pandas, Scikit-learn, Keras, etc.
+Cada proyecto que desarrollemos debe de tener su propio *entorno de librerías estable*.
+Por eso, surgen los **virtual environements**.
+
+
+---
+
+# Virtual Environments
+
+Un entorno virtual aglutina un conjunto de librerías de Python para que sean utilizadas en la ejecución de scripts.
+
+Necesitamos tener instalado la librería que usaremos: [virtualenv](https://virtualenv.pypa.io/en/latest/)
+
+Linux y MacOS:
+```terminal
+python3 -m pip install virtualenv
+```
+
+Windows:
+```terminal
+py -m pip install virtualenv  
+```
+
+---
+
+# Virtual Environments
+
+Para crear un entorno virtual
+
+Linux y MacOS:
+```terminal
+python3 -m venv <nombre>
+```
+
+Windows:
+```terminal
+py -m pip venv <nombre>
+```
+
+####Creemos uno llamado "curso"
+
+---
+
+# Virtual Environments
+
+Para activarlo
+
+Linux y MacOS:
+```terminal
+source <nombre>/bin/activate
+
+which python
+python3 -m pip list
+```
+
+Windows:
+```terminal
+.\<nombre>\Scripts\activate
+where python
+```
+
+Para desactivarlo:
+```terminal
+deactivate
+```
+
+???
+Comentar la utilidad:
+
+python3 -m pip freeze > requeriments.txt
+cat requeriments.txt
+python3 -m pip install -r requeriments.txt
+
+.gitignore
+
+
+
+
+---
+
+class: center, middle
+
+# Un *grapat* de librerías/clases propias:
+
+#### namedtuple
+#### counter 
+#### defaultdict
+#### random
+
+---
+
+# namedtuple
+
+Las tuplas no suelen tener un nombre para los atributos. Esta clase sí lo permite.
+
+[Documentación](https://docs.python.org/3/library/collections.html#collections.namedtuple)
+
+Maneras de importar:
+
+```python
+import collections
+myTupla = collections.namedtuple(...)
+
+```
+
+```python
+from collections import namedtuple
+Entidad = namedtuple("Entidad","nombre CP direccion")  # 2 parameters!
+uib = Entidad("Universitat","07122",("Carrer","Valldemossa","7.5km"))
+print(uib)
+print(uib.nombre)
+print(uib.direccion)
+print(uib[0])
+print(uib[1:])  #slicing
+print(uib._fields)
+```
+---
+
+# counter
+
+Es un diccionario que permite contar elementos. El valor es un entero.
+
+[Documentación](https://docs.python.org/3/library/collections.html#collections.Counter)
+
+```python
+from collections import Counter
+c = Counter("holaOlaAdiosoo")
+print(c)
+print(c.most_common(3)) #top 3
+c["z"]+=1
+print(c)
+```
+
+```python
+sum(c.values())                 # total of all counts
+c.clear()                       # reset all counts
+list(c)                         # list unique elements
+set(c)                          # convert to a set
+dict(c)                         # convert to a regular dictionary
+c.items()                       # convert to a list of (elem, cnt) pairs
+Counter(dict(list_of_pairs))    # convert from a list of (elem, cnt) pairs
+c.most_common()[:-n-1:-1]       # n least common elements
++c                              # remove zero and negative counts
+```
+
+
+???
+.keys()
+.values()
+sum(list)
+for i in c.items():    #tupla
+for k,v in c.items():  
+
+---
+
+
+# defaultdict
+Es un diccionario donde el objeto.key puede ser creado automáticamente por defecto. Evitamos el tradicional *if not key: .add(key)*
+
+```python
+from collections import defaultdict
+d = defaultdict(int)
+d["a"]+=1 
+print(d)
+
+d = defaultdict(list)
+d["a"].append("Hola")
+d["a"].append("Hi")
+print(d)
+
+lista = [("a",1),("a",2),("a",3),("b",1)]
+d = defaultdict(list)
+for k,v in lista:
+  d[k].append(v)
+
+print(d) 
+
+```
+
+
+---
+
+# random library
+
+[Documentación](https://docs.python.org/3/library/random.html)
+
+```python
+import random
+print(random.random())
+listaColores = "green blue yellow dark white".split()
+print(listaColores)
+random.shuffle(listaColores) #function in place
+print(listaColores)
+random.sample(listaColores,2)
+```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Práctica final de capítulo
+
+Crear unas cartas (francesas, españolas), Crear una baraja, barajar y repartir las cartas entre 4 jugadores. El resultado son 4 mazos de cartas por cada jugador que, obviamente, no han de tener entre ellos ninguna carta repetida. La comprobación se ha de realizar con *assert*
+
+Por último, hay que calcular qué jugador tiene mejor reparto de cartas. Por ejemplo, en el [Tute](https://es.wikipedia.org/wiki/Tute) cada naipe tiene su valor. 
+
+##### Nota: 
+La función *assert* permite detectar errores de programación (pruebas unitarias)
+```python
+assert True == (False or True)
+assert True == (False and True)
+#assert <¿Qué esperamos encontrar en una variable?>
+```
+
+##### Nota: Sin usar *Clases*; Usar conceptos ya vistos, y aplicando compresión y conversión de tipos...
+
+
+???
+```python
+
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+import collections
+import random
+
+import operator
+
+# =============================================================================
+# Crear Baraja
+# =============================================================================
+palos = ["oros","copas","espadas","palos"]
+naipes = range(1,8)+["sota","caballero","rey"]
+Carta = collections.namedtuple("Carta","naipe palo")
+baraja = [ Carta(*(n,p)) for p in palos for n in naipes]
+
+# =============================================================================
+# Barajar 
+# =============================================================================
+random.shuffle(baraja)   
+
+# =============================================================================
+# Repartir
+# =============================================================================
+num_jugadores = 4
+jugadores = collections.defaultdict(list)
+
+totalcartas = len(baraja)
+assert totalcartas%num_jugadores==0
+
+cartasxjugador = totalcartas/num_jugadores
+previx=0
+for j,ix in enumerate(range(cartasxjugador,totalcartas+cartasxjugador,cartasxjugador)):
+    jugadores[j] = baraja[previx:ix]
+    previx=ix
+
+assert len(jugadores[0])==cartasxjugador
+assert len(jugadores[num_jugadores-1])==cartasxjugador
+
+
+# =============================================================================
+# Comprobar que no hay cartas repetidas entre manos de jugadores
+# =============================================================================
+for j in jugadores.keys():
+    for i in range(j+1,num_jugadores):
+        assert set(jugadores[j]).intersection(set(jugadores[i])) == set()
+
+
+# =============================================================================
+# Qué jugador posee el mayor valor de naipes: 
+# =============================================================================
+#El valor de las cartas en el TUTE https://es.wikipedia.org/wiki/Tute
+valor = dict({1:11,3:10,"rey":4,"caballero":3,"sota":2,2:0,4:0,5:0,6:0,7:0})
+
+puntos_jugador = collections.defaultdict(int)
+for j in range(num_jugadores):
+    for c in range(cartasxjugador):
+        puntos_jugador[j]+=valor[jugadores[j][c].naipe]
+
+for k,v in puntos_jugador.items():
+    print("El jugador %i tiene una mano de %i"%(k,v))
+
+jugador_mejor_mano = max(puntos_jugador.items(), key=operator.itemgetter(1))[0] 
+print("El jugador con mejor mano es:%i"%jugador_mejor_mano)
+
+
+```
+
+---
+
+
+background-color: #eeeeee
+class: center, middle
+
+# Continua en C1b.
+
+
+<a href="Slides_PythonII.html">
+<svg id="move" class="svg-icon" viewBox="0 0 20 20" height="35" width="35" alt="Siguiente Tema">
+  <path fill="#aaaaaa" d="M5.92,11.7c-0.091,0-0.178-0.013-0.265-0.027l-2.433,6.487h5.395l-2.433-6.487C6.097,11.687,6.01,11.7,5.92,11.7z"></path>
+            <path fill="#aaaaaa" d="M4.254,10.34H0.479l2.11,7.573l2.429-6.477C4.631,11.193,4.348,10.803,4.254,10.34z"></path>
+            <path fill="#aaaaaa" d="M7.585,10.34c-0.094,0.463-0.378,0.853-0.764,1.096l2.429,6.477l2.019-7.573H7.585z"></path>
+            <path fill="#aaaaaa" d="M5.018,8.564L2.589,2.087L0.479,9.66h3.775C4.348,9.197,4.631,8.807,5.018,8.564z"></path>
+            <path fill="#aaaaaa" d="M5.92,8.3c0.091,0,0.178,0.013,0.265,0.027l2.433-6.487H3.222l2.433,6.487C5.742,8.313,5.829,8.3,5.92,8.3z"></path>
+            <path fill="#aaaaaa" d="M7.585,9.66h3.684L9.25,2.087L6.821,8.564C7.208,8.807,7.491,9.197,7.585,9.66z"></path>
+            <circle fill="#aaaaaa" cx="5.92" cy="10" r="0.68"></circle>
+            <path fill="#aaaaaa" d="M11.763,8.872L12.064,10l-0.301,1.128c0.184,0.101,0.392,0.164,0.617,0.164c0.712,0,1.292-0.58,1.292-1.292s-0.58-1.292-1.292-1.292C12.156,8.708,11.947,8.771,11.763,8.872z"></path>
+            <path fill="#aaaaaa" d="M12.55,8.368c0,0.007-0.006,0.01-0.007,0.017c0.327,0.033,0.623,0.16,0.864,0.357c0.004-0.005,0.002-0.011,0.007-0.016l0.637-0.637c-0.408-0.357-0.927-0.583-1.501-0.622V8.368z"></path>
+            <path fill="#aaaaaa" d="M11.438,7.652l0.236,0.887c0.168-0.08,0.35-0.135,0.543-0.155c-0.001-0.006-0.007-0.01-0.007-0.017V7.467C11.938,7.485,11.681,7.555,11.438,7.652z"></path>
+            <path fill="#aaaaaa" d="M12.21,12.533v-0.901c0-0.007,0.006-0.01,0.007-0.017c-0.193-0.019-0.375-0.075-0.543-0.155l-0.236,0.887C11.681,12.445,11.938,12.515,12.21,12.533z"></path>
+            <path fill="#aaaaaa" d="M14.913,10.17h-0.901c-0.007,0-0.01-0.006-0.017-0.007c-0.033,0.327-0.16,0.623-0.357,0.864c0.005,0.004,0.011,0.002,0.016,0.007l0.637,0.637C14.649,11.263,14.875,10.744,14.913,10.17z"></path>
+            <path fill="#aaaaaa" d="M14.291,8.329l-0.637,0.637c-0.004,0.004-0.011,0.003-0.016,0.007c0.197,0.241,0.324,0.537,0.357,0.864c0.006-0.001,0.01-0.007,0.017-0.007h0.901C14.875,9.256,14.649,8.737,14.291,8.329z"></path>
+            <path fill="#aaaaaa" d="M14.051,11.911l-0.637-0.637c-0.004-0.004-0.003-0.011-0.007-0.016c-0.241,0.197-0.537,0.324-0.864,0.357c0.001,0.006,0.007,0.01,0.007,0.017v0.901C13.124,12.494,13.643,12.268,14.051,11.911z"></path>
+            <path fill="#aaaaaa" d="M17.345,1.839h-6.529L10.352,3.58l0.624,2.34h1.064c2.285,0,4.08,1.882,4.08,4.08v0c0,2.254-1.827,4.08-4.08,4.08h-1.064l-0.624,2.34l0.464,1.741h6.529L19.521,10L17.345,1.839z"></path>
+  </svg>
+</a>
+
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

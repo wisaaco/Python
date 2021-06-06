@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C2 - Python</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+ /* file saved to local directory */
+    @import url("gh-fork-ribbon.css");
+    /* alternatively fetch from cdnjs */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css");
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      div.my-header {
+        background-color: #000000;
+        /*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#606550), color-stop(0%,#409494), color-stop(0%,#ffffff), color-stop(10%,#ffffff), color-stop(25%,#b3fbb3), color-stop(100%,#008c2e));*/
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 22px;
+        width: 100%;
+        text-align: left;
+      }
+      div.my-header span{
+        color: white;
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        font-size: 16px;
+
+      }
+      div.my-footer {
+        /*border-top: 1px solid #ccc;*/
+        font-size: 8pt;
+        text-align: left;
+        position: fixed;
+        bottom: 0px;
+        left: 10px;
+        /*height: 30px;*/
+        /*width: 100%;*/
+      }
+
+      div.my-footer p {
+      /*    margin-top: 10px;
+          height: 30px;*/
+          margin-bottom: 0px;
+      }
+      div.my-footer img {
+        vertical-align:middle;
+      }
+
+      img.alt {
+        width: 100px;
+      }
+
+      .cols {
+        display: flex;
+      }
+      
+      .fifty {
+        flex: 50%;
+        margin-left: 10px
+      }
+
+      .work{
+        float: right;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        margin-right: -5px;
+      }
+
+      #colorani path{
+        animation: mycolor 4s;
+        /*animation-iteration-count: infinite;*/
+      }
+        @keyframes mycolor {
+          0% { fill:#ffff4d; }
+          10% { fill:#e6e600; }
+          20% { fill:#cccc00; }
+          30% { fill:#b3b300; }
+          40% { fill:#999900; }
+          50% { fill:#808000; }
+          60% { fill:#666600; }
+          70% { fill:#4d4d00; }
+          80% { fill:#333300; }
+          90% { fill:#1a1a00; }
+          100% { fill:#000000; }
+        }
+
+
+
+        a:before,
+        a:after, #face {
+          animation: glow-grow 8s ease-out;
+        }
+
+        @keyframes glow-grow {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.);
+            opacity: 1;
+          }
+        }
+
+          .var {
+                font-family: 'Dosis';
+                font-weight: normal;
+          }
+
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+ <div class="my-header">
+
+    <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Pandas</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
+
+    <span>C2. Pandas</span>
+
+ 
+ </div>
+ <div class="my-footer">
+    <p> 2021 - Isaac Lera </p>
+ </div>
+
+---
+class: center, middle
+# C2. Pandas
+### - la librería para el análisis de datos - 
+---
+
+
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 818.63 331.21"><defs><style>.cls-1{fill:#130754;}.cls-2{fill:#ffca00;}.cls-3{fill:#e70488;}</style></defs><title>Artboard 63</title><path class="cls-1" d="M290.85,199.21c-10.27,0-20.73-4.25-27.28-12.58v45H243l0-111.09h18.6l.71,12.22c6.38-9.39,17.71-14.35,28.52-14.35,20.73,0,36,17.37,36,40.4S311.58,199.22,290.85,199.21Zm-6.37-65.55c-12.05,0-21.79,9.39-21.79,25.16S272.43,184,284.48,184s21.79-9.39,21.79-25.16S296.53,133.66,284.48,133.66Z"/><path class="cls-1" d="M404.36,197.1l-.71-12.22c-6.38,9.39-17.72,14.35-28.53,14.34-20.73,0-36-17.36-36-40.39s15.24-40.4,36-40.39c10.81,0,22.15,5,28.53,14.35l.71-12.22H423V197.1Zm-22.85-63.43c-12.05,0-21.79,9.39-21.8,25.16S369.45,184,381.5,184s21.8-9.39,21.8-25.16S393.56,133.67,381.51,133.67Z"/><path class="cls-1" d="M494.87,197.11V154.77c0-14.88-5.13-19.84-14.52-19.84-9.75,0-20.38,8.85-20.38,19.48v42.7H439.41V120.57H458.2l.89,14.18c5.14-9.75,16.65-16.3,28.35-16.3,20.37,0,28,14.18,28,33.13v45.54Z"/><path class="cls-1" d="M590.77,197.13l-.71-12.23c-6.38,9.39-17.72,14.35-28.52,14.35-20.73,0-36-17.37-36-40.4s15.24-40.39,36-40.39c10.27,0,20.72,4.26,27.28,12.58V90.83h20.56l0,106.3ZM567.92,133.7c-12,0-21.79,9.39-21.79,25.15S555.87,184,567.92,184s21.79-9.38,21.79-25.15S580,133.7,567.92,133.7Z"/><path class="cls-1" d="M686.6,197.14l-.71-12.22c-6.38,9.39-17.72,14.34-28.53,14.34-20.73,0-36-17.36-36-40.4s15.24-40.39,36-40.39c10.81,0,22.15,5,28.53,14.36l.71-12.23h18.6v76.53Zm-22.85-63.43c-12,0-21.79,9.39-21.8,25.16S651.7,184,663.74,184s21.8-9.39,21.8-25.16S675.8,133.71,663.75,133.71Z"/><path class="cls-1" d="M750.73,199.63a60.16,60.16,0,0,1-30.65-8.69l3.37-14.17c6.2,3.72,15.59,8.51,26.93,8.51,8.15,0,13.82-2.48,13.82-8.86,0-5.49-5.85-7.44-16.3-9.92-18.78-4.08-25.51-14-25.51-24.81,0-12.05,9.39-23.38,30.12-23.38,12.58,0,23.57,5.49,26,6.91l-3.37,13.47A44.59,44.59,0,0,0,753,132.31c-8.32,0-12.4,2.83-12.4,7.44,0,5.13,5.32,7.44,13.46,9.39,20.2,4.25,28.35,13.64,28.35,23.92C782.45,189.53,770.4,199.63,750.73,199.63Z"/><rect class="cls-1" x="74.88" y="68.42" width="24.09" height="50.02"/><rect class="cls-1" x="74.88" y="171.17" width="24.09" height="50.02"/><rect class="cls-2" x="74.88" y="133.04" width="24.09" height="23.6"/><rect class="cls-1" x="36.19" y="109.55" width="24.09" height="166.27"/><rect class="cls-1" x="112.78" y="212.44" width="24.09" height="50.02"/><rect class="cls-1" x="112.78" y="109.61" width="24.09" height="50.02"/><rect class="cls-3" x="112.78" y="174.23" width="24.09" height="23.6"/><rect class="cls-1" x="150.67" y="55.39" width="24.09" height="166.27"/></svg>
+
+
+**Pandas** es la librería por excelencia para el análisis de datos. Su nombre proviene de “panel data” (término econométrico). Inspirada en las funcionalidades de R, pero con el potencial de Python.
+
+**Pandas** incluye 'todas’ las funcionalidades para el análisis de datos: carga, filtrado, tratamiento, sintetización, agrupamiento, almacenamiento y visualización. Además se integra con el resto de librerías de calculo númerico como Numpy, Matplotlib, scikit-learn, … y despliegues: HPC, Cloud, etc.
+
+.var[“Es una hoja de calculo bestial"!!]
+
+[Página oficial de Pandas](https://pandas.pydata.org/)
+
+
+---
+
+
+# Contenido
+
+- B1 Introducción a la estructura DataFrame.
+  Características, Carga y Acceso
+
+- B2 Creación y Almacenamiento.
+
+- B3 Visualización con pandas.
+
+- B4 Otras operaciones con DataFrames: agrupaciones de datos, ...
+
+- B5 Uniendo datos y gestionando datos desconocidos.
+
+- B6 Series Temporales.
+
+
+Con intercalación de ejercicios entre bloques !
+
+---
+
+class: center, middle
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Paso 0. Instalar pandas en nuestro virtual environment.
+
+---
+
+# B1. Introducción a Pandas
+
+En Pandas existen dos tipos de datos principales: Series y Dataframes. Las Series son listas/arrays con métodos estádisticos usando la librería Numpy.
+
+El [Datadrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) es el tipo de datos más importante. 
+Un dataframe es un objeto de dos dimensiones de objetos. También puede verse como una hoja de cálculo o como una tabla de un modelo entidad-relación, o como una colección de una base mongodb.
+
+Para importar la librería suelen usarse estos comandos:
+
+```python
+import pandas as pd   #Esta opción es la habitual: pd
+
+import pandas
+from pandas import *
+```
+
+---
+
+# B1. Primeros pasos con pandas
+
+Vamos a aprender Pandas através de una serie de proyectos y ejemplos.
+En este primera fase vamos a cargar datos de un fichero CSV, son ficheros donde los atributos/valores están separados por una coma
+
+Vamos a trabajar con un fichero CSV: [Descargar fichero WHO.csv](http://www.exploredata.net/Downloads/WHO-Data-Set)
+
+¿Información contenida en este fichero? [Glosario](https://www.who.int/whosis/indicators/en/)
+
+### Cargar un dataframe a partir de un fichero en formato CSV.
+
+[.read_csv()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html)
+
+```python
+df = pd.read_csv("WHO.csv") #Alerta con el path
+
+df # Qué información obtenemos?
+```
+
+---
+
+
+## Atributos de un DataFrame <span>&#8544;</span>
+
+Un dataframe dispone de diferentes atributos que nos proporcionan acceso a su información y metainformación.
+
+Los siguientes ejemplos muestran cómo pueden consultarse la dimensión, columnas, filas, etc.
+
+```python
+df.shape     # que tipo es?
+
+df.columns   # tipo?
+df.columns[0] 
+# Si tiene implementado __getitem__ entonces podemos hacer:
+df.columns[:4] # slicing !
+
+df.index     # tipo?
+
+dir(df)      # Es abrumador... 
+# Fijaros: ¿tiene el atributo Continente?
+# entonces podemos hacer esto >
+df.Continent # tipo?
+```
+
+---
+
+## Atributos de un DataFrame <span>&#8545;</span>
+
+Otros comandos para contextulizar el dataframe:
+
+```python
+#
+df.info() 
+
+#
+df.describe()
+
+#
+df.head()
+df.head(3)
+
+#
+df.tail()
+df.tail(3)
+```
+
+
+---
+
+## Atributos de un DataFrame <span>&#8546;</span>
+
+Selección de datos de una columna:
+
+```python
+df[0] # Esto no funciona!
+# Un dataframe hereda el "estilo de un diccionario"
+pd.DataFrame.__mro__
+
+df["Country"] # Un diccionario tiene keys
+
+df.Country # Atención: se puede si el nombre no contiene espacios, simbolos,... 
+
+#Entonces, si hay key, hay values
+df.Country.values
+df.Country.values[-1]
+df.Country.values[:4] #y slicing
+```
+
+### ¿Qué tipo de dato es una columna?
+```python
+type(df.Country)
+<class 'pandas.core.series.Series'>
+```
+
+---
+
+## Composición de un DataFrame <span>&#8544;</span>
+
+Tanto las filas como las columnas son [Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html).
+
+```python
+import pandas as pd
+import numpy as np
+
+dir(pd.Series) # !
+
+serie = pd.Series(np.random.randn(100))
+
+# y funciones similares:
+serie.describe()
+serie.head()
+serie[:5]
+serie.tail()
+serie[-5:]
+```
+
+---
+
+
+## Composición de un DataFrame <span>&#8545;</span>
+
+Las series ofrecen utilidades **estadísticas**...
+
+```python
+serie.sum()     #suma
+np.sum(serie)   #alternativa: internal method vs functional method
+serie.mean()    #media
+serie.std()     #desviacion
+serie.median()  #mediana
+serie.min()
+serie.max()
+
+serie.sample(n=4)
+serie.sample(n=4,random_state=2) 
+
+serie.add(serie)
+serie.sub(serie)
+serie = serie + 1 #!
+```
+--
+
+Y **lógicas**
+```python
+notas = pd.Series(np.random.randint(0,10,size=100))
+sorted(notas)
+print(notas>5)
+len(notas[notas>5])    #!!!!
+notas.groupby(notas>5).count() #!! Lo trabajaremos con df
+notas.map(lambda x: "Aprobado" if x>=5 else "Suspendido") #!!
+```
+
+<!-- -- -->
+
+<!-- <iframe src="https://gifer.com/embed/8NGG" width="30%" height="30%" style='position:absolute;top:0;right:0;' frameBorder="0" allowFullScreen></iframe>
+ -->
+---
+
+Regresemos al DataFrame...
+
+## Atributos de un DataFrame <span>&#8547;</span>
+
+```python
+df = pd.read_csv("WHO.csv") #Alerta con el path
+
+print("Mean value of %s is %f " %(df.columns[3], df[df.columns[3]].mean())) #!
+
+df[df.columns[3]] #Valores con NaN
+
+
+fertilidad = df[df.columns[3]]
+print("Minimo %f " %fertilidad.min())
+print("Max %f " %fertilidad.max())
+print("Mean %f " %fertilidad.mean())
+print("Descripción de la serie:\n%s " %fertilidad.describe())
+
+```
+
+---
+
+# Selección de datos en un dataframe
+
+- Selección simple a columnas, devuelve una Serie.
+```python
+df.Country[2:10:2]
+df["Country"][2:10:2]
+df[df.columns[0]][2:10:2]
+```
+- Selección múltiple de columnas, devuelve un dataframe.
+```python
+df[["Country","Continent"]]
+df[df.columns[0:3:2]]
+```
+- La selección sobre filas es mediante el índice.
+```python
+df.index
+df.index[0]
+type(df.index)
+for i in pd.RangeIndex(0,20,step=4):
+    print(i)
+```
+
+El índice nos va a permitir filtrar información de la tabla con criterios núméricos o lógicos. Selección por posición, categórica o lógica/booleana. 
+
+---
+
+## Selección basada en la posición <span>&#8544;</span> (.iloc)
+
+Para acceder mediante a la posición a una fila exacta necesitamos una función del dataframe:
+
+```python
+df.iloc[0]
+```
+
+El tipo df.iloc\[int\] es una Serie indexada por la posición de las filas.
+
+```python
+df.iloc[0].CountryID
+```
+
+Además permite el slicing. En estos casos, cuando devuelve varias filas está generando un dataframe.
+
+```python
+df.iloc[0:10]  #las 10 primeras filas
+df.iloc[::2]   #las filas pares
+df.iloc[200:] 
+df.iloc[::-1]  
+
+df.iloc[[0,4,5,5]]
+```
+
+
+---
+
+## Selección por categoría <span>&#8545;</span> (.loc)
+
+El índice puede ser un objeto: númerico/posición, categórico o fecha. Veamos un ejemplo:
+```python
+df.set_index("Country",inplace=True)
+print(df.index)
+df.iloc[[0,4,5,5],[3,5,6]] #podemos usar iloc para acceder a la posición
+df.loc["Albania"]          #pero también el nombre con la funcion loc
+df.loc[0]                  #la función loc funciona con números cuando el índice lo es
+```
+
+** Si el índice es númerico, entonces: **
+
+```python
+df.loc[0]
+df.loc[0].Country
+
+df.loc[0:10]  #las 10 primeras filas
+df.loc[::2]   #las filas pares
+df.loc[200:] 
+df.loc[::-1]  
+```
+La función loc permite hacer la selección sobre un conjunto de columnas específico:
+```python
+df.loc[0:1,["Country"]]
+df.loc[0:10:2,["Country","Continent"]]
+```
+
+
+---
+
+## Selección lógica o booleana sobre el índice <span>&#8546;</span>
+
+Las selección lógica es extramadamente útil \[ < expresión lógica \> \] para la selección de datos en función de criterios.
+
+### ¿Qué país tiene la mayor emisión de CO2?
+
+--
+
+```python
+co2 = df["Total_CO2_emissions"]
+print(co2.max())
+```
+
+### Ok, pero a qué país corresponde?
+
+--
+
+```python
+row = df[df["Total_CO2_emissions"]==co2.max()]  
+```
+### Ok, Ok, pero qué páis? (string)!!
+
+--
+
+```python
+row.Country.values[0]
+```
+
+¡Este proceso es clave para entender la estructura de datos!
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad  <span>&#8544;</span>
+
+A- ¿Cuál es la suma mundial de población urbana: "Urban_population"?
+
+B- Ordena y seleccióna los 10 primeros países  con mayor población urbana.
+
+C- ¿Qué países  tienen una población urbana menor de 50000?
+
+D- ¿Cuáles son los cinco países  más contaminantes ("Total_CO2_emissions")?
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+# Actividad  <span>&#8545;</span>
+
+El identificador de continente no es muy práctico. Observando algunas muestras podrías establecer la relación entre nombre de continente e identificador. Es decir, sabemos que Spain está en el continente Europeo y el código del continente es el 2. Por tanto, 2 es Europa. Nota: Hay dos códigos asociados a Asia.
+
+A- Crea un nuevo dataframe donde los continentes sean su nombre.
+
+B- Crea un nuevo dataframe con países  europeos.
+
+
+---
+
+background-color: #eeeeee
+class: center, middle
+
+# Fin C2 - Bloque 1.
+
+
+   <a href="Slides_PandaB2.html">
+        
+  <svg id="face" class="svg-icon" viewBox="0 0 20 20" height="35" width="35" alt="Siguiente Tema">
+    <polygon fill="#aaaaaa" points="18.198,7.95 3.168,7.95 3.168,8.634 9.317,9.727 9.317,19.564 12.05,19.564 12.05,9.727 18.198,8.634 "></polygon>
+    <path fill="#aaaaaa" d="M2.485,10.057v-3.41H2.473l0.012-4.845h1.366c0.378,0,0.683-0.306,0.683-0.683c0-0.378-0.306-0.683-0.683-0.683H1.119c-0.378,0-0.683,0.306-0.683,0.683c0,0.378,0.306,0.683,0.683,0.683h0.683v4.845C1.406,6.788,1.119,7.163,1.119,7.609v2.733c0,0.566,0.459,1.025,1.025,1.025c0.053,0,0.105-0.008,0.157-0.016l-0.499,5.481l5.9,2.733h0.931C8.634,13.266,5.234,10.458,2.485,10.057z"></path>
+    <path fill="#aaaaaa" d="M18.169,6.584c-0.303-3.896-3.202-6.149-7.486-6.149c-4.282,0-7.183,2.252-7.484,6.149H18.169z M15.463,3.187c0.024,0.351-0.103,0.709-0.394,0.977c-0.535,0.495-1.405,0.495-1.94,0c-0.29-0.268-0.418-0.626-0.394-0.977C13.513,3.827,14.683,3.827,15.463,3.187z"></path>
+    <path fill="#aaaaaa" d="M18.887,10.056c-2.749,0.398-6.154,3.206-6.154,9.508h0.933l5.899-2.733L18.887,10.056z"></path>
+  </svg>
+  </a>
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
