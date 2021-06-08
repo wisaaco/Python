@@ -1033,73 +1033,35 @@ print(np.random.randint())
 
 import keras        # instalada? dependencias: Tensorflow?
 ```
----
 
+---
 background-image: url(img/python_environment.png)
 ## Instalación de librerías
-
 
 <span class="bottom-content">
 [Imagen](http://andrewsforge.com/article/python-new-package-landscape/)
 </span>
 
+---
 
-???
-Comentar mi "instalación":
+# Mi "instalación" es un "caos":
+
+```python
 pip --version
 pip list
 python2 -m pip list | wc -l
+```
+
+## EVITARLO!
 
 ---
 
-## Instalación de librerías: *pip*
 
-##### Por defecto, *pip* ya viene instalado: [https://pip.pypa.io/en/stable/installing/](https://pip.pypa.io/en/stable/installing/)
-
-Su funcionamiento es sencillo. Al instalar un paquete también se instalan sus dependencias.
-```terminal
-pip install numpy
-```
-
-Ahora ya podemos usar esa librería en nuestro scripts:
-```python
-import numpy as np
-l = np.zeros(10)
-print(l)
-```
-
-Si conviven varios cores de python (2.7 y 3.+), la instalación depende del core. Por ejemplo:
-```terminal
-python3 -m pip install numpy #Linux y MacOS
-py -m pip --version          #Windows
-```
-
-
----
-
-# *pip*
-
-Con *pip* podemos ver que paquetes tenemos instalados:
-
-```terminal
-pip list
-pip freeze
-```
-
---
-
-Los paquetes suelen tener dependencias entre ellos, sobre todo librerías complejas: Networkx, Pandas, Scikit-learn, Keras, etc.
-Cada proyecto que desarrollemos debe de tener su propio *entorno de librerías estable*.
-Por eso, surgen los **virtual environements**.
-
-
----
-
-# Virtual Environments
+# Virtual Environments I
 
 Un entorno virtual aglutina un conjunto de librerías de Python para que sean utilizadas en la ejecución de scripts.
 
-Necesitamos tener instalado la librería que usaremos: [virtualenv](https://virtualenv.pypa.io/en/latest/)
+Necesitamos tener instalado una librería especial para la creación de entornos virtuales: [virtualenv](https://virtualenv.pypa.io/en/latest/)
 
 Linux y MacOS:
 ```terminal
@@ -1113,7 +1075,7 @@ py -m pip install virtualenv
 
 ---
 
-# Virtual Environments
+# Virtual Environments II
 
 Para crear un entorno virtual
 
@@ -1127,11 +1089,12 @@ Windows:
 py -m pip venv <nombre>
 ```
 
-####Creemos uno llamado "curso"
+###Actividad:
+Creemos un entorno virtual llamado: *curso*
 
 ---
 
-# Virtual Environments
+# Virtual Environments III
 
 Para activarlo
 
@@ -1154,16 +1117,65 @@ Para desactivarlo:
 deactivate
 ```
 
-???
-Comentar la utilidad:
+---
 
+# Virtual Environments IV
+
+Podemos compartir nuestras librerías con otros compañeros:
+
+Generamos un fichero que contiene la versión de nuestras librerías:
+```terminal
 python3 -m pip freeze > requeriments.txt
 cat requeriments.txt
+```
+
+En otro equipo (o dentro de otro entorno virtual) podemos instalar las mismas dependencias:
+```terminal
 python3 -m pip install -r requeriments.txt
+```
 
-.gitignore
+
+---
+
+## Instalación de librerías: *pip*
+
+##### Por defecto, *pip* ya viene instalado: [https://pip.pypa.io/en/stable/installing/](https://pip.pypa.io/en/stable/installing/)
+
+Su funcionamiento es sencillo. Al instalar un paquete también se instalan sus dependencias. Si estamos en un entorno virtual estas instalaciones se realizan dentro del entorno.
+
+```terminal
+pip install numpy
+```
+
+Ahora ya podemos usar esa librería en nuestro scripts:
+```python
+import numpy as np
+l = np.zeros(10)
+print(l)
+```
+
+Si conviven varios cores de python (2.7 y 3.+), la instalación depende del core. Por ejemplo:
+```terminal
+python3 -m pip install numpy #Linux y MacOS
+py -m pip --version          #Windows
+```
 
 
+---
+
+# *pip*
+
+Y como hemos visto, con *pip* podemos ver que paquetes tenemos instalados:
+
+```terminal
+pip list
+pip freeze
+```
+
+
+Los paquetes suelen tener dependencias entre ellos, sobre todo librerías complejas: Networkx, Pandas, Scikit-learn, Keras, etc.
+Cada proyecto que desarrollemos debe de tener su propio *entorno de librerías estable*.
+Por eso, surgen los **virtual environements**.
 
 
 ---
