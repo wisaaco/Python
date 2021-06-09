@@ -179,10 +179,10 @@ class: center, middle
 
 *[Numpy](https://numpy.org/) provee funciones eficientes para la manipulación y el procesamiento de arrays. Está implementado en C*
 
-No son python listas [] donde puede ir cualquier cosa. Los elementos de un array numpy son homogéneos, incluyen operaciones baciscas y otros tipos de álgebra linea.
+No son python listas [] donde puede ir cualquier cosa. Los elementos de un array numpy son homogéneos, incluyen operaciones baciscas y otros tipos de operaciones de álgebra linea.
 
 ```python
-import numpy as np  #Al entorno virtual!
+import numpy as np  # Install on the VirtualEnvironment
 
 data = np.array([1,0]) 
 print(data[0])
@@ -258,11 +258,62 @@ np.diag([1,2,3,4])
 ```
 ---
 
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos conseguir esta matriz?
+```python
+array([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]])
+```
+
+--
+- Pista:
+[np.repeat](https://numpy.org/doc/stable/reference/generated/numpy.repeat.html)
+
+???
+
+l=np.arange(10)
+np.repeat([l],10,axis=0)
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos conseguir esta transformación?
+```python
+array([1, 2, 3])
+
+
+array([1, 1, 1, 2, 2, 2, 3, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3])
+
+```
+
+--
+- Pista:
+[np.tile](https://numpy.org/doc/stable/reference/generated/numpy.tile.html)
+- [np.concatenate](https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html)
+
+???
+
+a = np.arange(1,4)
+np.concatenate([np.repeat(a, 3), np.tile(a, 3)])
+
 
 ---
 
 # Operativas I 
-
 
 ```python
 a = np.array([0,1])
@@ -321,7 +372,52 @@ np.sum(a,axis=1)
 np.sum(a,axis=0)
 ```
 
+---
 
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+$$d_{v1,v2}=\srqt{\sum_{k=1}^n(x_{1,k}-x_{2,k})^2}$$
+
+¿Cómo podemos calcular la distancia euclideana entre dos vectores?
+```python
+v1 = np.arange(1,4)
+v2 = np.arange(4,7)
+
+#?
+5.196152422706632
+
+```
+
+--
+- Pista np.square
+
+???
+
+np.sqrt(np.sum(np.square(v1-v2)))
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+$$ d_{v1,v2}= \sum_{k=1}^n \mid x_{1,k} - x_{2,k} \mid $$
+
+¿Cómo podemos conseguir calcular la distancia de Manhattan? [wiki](https://en.wikipedia.org/wiki/Taxicab_geometry)
+
+```python
+v1 = np.arange(1,4)
+v2 = np.arange(4,7)
+
+#?
+9
+```
+
+???
+
+np.sum(np.abs(v1-v2))
 
 ---
 
@@ -378,6 +474,28 @@ np.logical_not(np.logical_or(a<-40,a>40))
 
 ---
 
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos conseguir esta transformación?
+```python
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+array([ 0, -1,  2, -1,  4, -1,  6, -1,  8, -1])
+```
+
+--
+- pista: [np.where](https://numpy.org/doc/stable/reference/generated/numpy.where.html)
+
+???
+
+l=np.arange(10)
+out = np.where(l % 2 == 1, -1, l)
+
+
+---
+
 # Operaciones de grupos
 
 ```python
@@ -395,6 +513,55 @@ np.setdiff1d(a,b)
 np.setdiff1d(b,a)
 np.union1d(a,b)
 ```
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos conseguir encontrar los valores repetidos?
+```python
+array([0, 1, 1, 1, 4, 5, 6, 7, 7, 7])
+
+array([False, False,  True,  True, False, False, False, False, True, True])
+```
+--
+pista: [np.full](https://numpy.org/doc/stable/reference/generated/numpy.full.html)
+
+???
+
+l=np.array([0, 1, 1, 1, 4, 5, 6, 7, 7, 7])
+pos_unique = np.unique(l,return_index=True)[1]
+sol = np.full(l.shape[0],True)
+sol[pos_unique]=False
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos conseguir encontrar valores pico, valores mayores sobre sus vecinos?
+```python
+array([0, 1, 2, 3, 4, 54, 6, 7, 80, 9])
+
+array([5, 8])
+```
+
+pistas:
+- np.diff
+- np.sign
+
+???
+np.diff(l)
+np.sign( np.diff(l))
+np.diff(np.sign( np.diff(l)))
+dif = np.diff(np.sign( np.diff(l)))
+np.where(dif == -2)
+np.where(dif == -2)[0] + 1
+
 ---
 
 # Operaciones matriciales
@@ -443,6 +610,29 @@ case = np.array([[5,3,0,0,7,0,0,0,0],
 ???
 np.sum(case>0,axis=0)==8
 
+
+
+---
+
+<img class="work" src="icons/bookmark-star-fill.svg" alt="TODO" width="100" height="100" title="Bookmark"/>
+
+# Actividad 
+
+¿Cómo podemos calcular una media móvil (moving average) dado un valor de ventana?
+```python
+l = np.arange(100)
+
+#Vale buscar por internet! No inventamos la rueda!
+```
+
+???
+
+def moving_average(a, n=3) :
+    ret = np.cumsum(a, dtype=float)
+    ret[n:] = ret[n:] - ret[:-n]
+    return ret[n - 1:] / n
+
+
 ---
 background-color: #eeeeee
 class: center, middle
@@ -475,8 +665,26 @@ class: center, middle
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
+       <script src='https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML' type="text/javascript"></script>
     <script>
       var slideshow = remark.create();
+
+
+        // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+
     </script>
   </body>
 </html>
