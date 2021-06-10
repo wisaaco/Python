@@ -236,12 +236,11 @@ df.loc["2015"]
 ```
 
 ## En versión Python 2.7
-El acceso a la información se realiza con loc
+El acceso a la información se realiza directamente
 ```python
 df["2015"]
 ```
 
-El resto de las transparencias están adaptadas a Python2.7
 
 ---
 
@@ -252,27 +251,29 @@ Ahora ya podemos acceder por fechas/periodos a las muestas.
 Consultas con Años:
 ```python
 #A
-df["2015"][:10]      #seleccionamos las 10 primeras muestras de un año #**
-df["2015"].wind[8:18]
-print("Viento medio en 2015 sobre Mallorca: %f" %df["2015"].wind.mean())
-print("Viento medio en 2014 sobre Mallorca: %f" %df["2014"].wind.mean())
+df.loc["2015"][:10]      #seleccionamos las 10 primeras muestras de un año #**
+df.loc["2015"].wind[8:18]
+print("Viento medio en 2015 sobre Mallorca: %f" %df.loc["2015"].wind.mean())
+print("Viento medio en 2014 sobre Mallorca: %f" %df.loc["2014"].wind.mean())
 
 #B
 years = range(df.index.min().year,df.index.max().year)
-meanwind = [df[str(year)].wind.mean() for year in years]
+meanwind = [df.loc[str(year)].wind.mean() for year in years]
 #lo mismo B, usando grupos, y obteniendo un df
-meanwind = df.groupby(df.index.year).mean()["wind"] 
+meanwind = df.groupby(df.index.year).mean()["wind"]
+
+import matplotlib.pyplot as plt 
 meanwind.plot(kind="bar")
 
 #C
-df["2015"].mean()["wind"]>df["2012"].mean()["wind"]
+df.loc["2015"].mean()["wind"]>df.loc["2012"].mean()["wind"]
 
 ```
 
 Consultas con Meses...
 ```python
-df["01/2015"].describe()
-df["01/2006":"01/2007"].wind.describe()
+df.loc["01/2015"].describe()
+df.loc["01/2006":"01/2007"].wind.describe()
 ```
 
 ---
@@ -473,7 +474,7 @@ weekly = df.resample('W').sum()
 weekly.temperature_mean.plot()
 
 
-df["2014":"2015"].resample("3M")["temperature_mean"].agg([np.mean]).plot(kind="bar")
+df.loc["2014":"2015"].resample("3M")["temperature_mean"].agg([np.mean]).plot(kind="bar")
 
 ```
 ---
