@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>C2 - Python - B6</title>
+    <title> Python - Pandas - B6</title>
     <meta charset="utf-8">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -135,17 +135,17 @@ layout: true
 
     <svg height="15" width="18" viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg" style="fill: #ffffff; margin-left:4px;" role="img"><title>Pandas B6</title><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.23l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.24l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05 1.07.13zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"></path></svg>
 
-    <span>C2. Pandas. B6</span>
+    <span>Librería Pandas. B6</span>
 
  
  </div>
  <div class="my-footer">
-    <p> 2020 - Isaac Lera </p>
+    <p> 2021 - Isaac Lera </p>
  </div>
 
 ---
 class: center, middle
-# C2. Pandas
+# Librería Pandas
 ### - Bloque 6 - 
 ---
 
@@ -184,23 +184,33 @@ Enlace a la documentación: [TimeSeries](https://pandas.pydata.org/pandas-docs/s
 
 # Series Temporales <span>&#8544;</span>
 
-Preparemos un ejemplo:
+Empecemos con un ejemplo:
 
 ```python
 import pandas as pd
-df = pd.read_csv("climaMallorca.csv")  
+df = pd.read_csv("climaMallorca.csv")  #Alerta con el path!
 
-#Qué contiene el fichero
+# Qué contiene el fichero
+df.info()
 df.describe() 
 
-#Exploración de muestras
+# Exploración de muestras
 df.wind[:10]
 df.wind.mean() 
 df.wind.plot(kind="hist")
 
 # Posibilidad de valores anómalos?
 df.temperature_mean[df.temperature_mean>50] # más de 50 grados celsius!
+
+# Cómo podemos borrarlos?
+# ??
 ```
+
+???
+```python
+df.drop(df[df.temperature_mean>50].index,inplace=True)
+```
+
 
 ---
 
@@ -208,35 +218,32 @@ df.temperature_mean[df.temperature_mean>50] # más de 50 grados celsius!
 
 La idea de trabajar con series temporales es operar mediante unidades temporales.
 
-Del ejemplo anterior:
-### ¿Cómo podría sacar la temperatura media de un año?¿o la temperatura más alta de todos los meses de julio?
+Del ejemplo anterior: **¿Cómo podría sacar la temperatura media de un año o la temperatura más alta de todos los meses de julio?**
 
-Hay que transformar ese dataframe en una serie temporal. Los dataframes suelen tener un índice, en este caso es númerico.
+Para simplificar toda la operativa, transformaremos el dataframe en una serie temporal. Y esto significa, que el índice será una fecha, en vez de un formato númerico o categórico.
 
 ```python
 print ("Indices",df.index)  #El índice actual
 print (df["idDate"])        #El índice que queremos
-```
-Para ello:
 
-```python
 from pandas import DatetimeIndex
-df.index = DatetimeIndex(df["idDate"])
+df.index = DatetimeIndex(df["idDate"]) # cambiamos el índice!
+#Nota: por defecto en Pandas la fecha tiene este formato: YY-MM-DD
 ```
 
 
 ---
 
-# IMPORTANTE
+#  Y ahora... la magía!
 
-## En versiones superiores a Python 3.
-El acceso a la información se realiza con loc
+Atención, ten en cuenta la versión de Python.
+
+En versiones superiores a **Python 3** el acceso a la información se realiza con *loc*:
 ```python
 df.loc["2015"]
 ```
 
-## En versión Python 2.7
-El acceso a la información se realiza directamente
+En versión Python 2.7, el acceso a la información se realiza directamente:
 ```python
 df["2015"]
 ```
@@ -248,33 +255,59 @@ df["2015"]
 
 Ahora ya podemos acceder por fechas/periodos a las muestas. 
 
-Consultas con Años:
+Ejemplos usando *años*:
 ```python
-#A
-df.loc["2015"][:10]      #seleccionamos las 10 primeras muestras de un año #**
+# Seleccionamos 10 muestras de un año 
+df.loc["2015"][:10] # Su orden dependen del fichero
+## Cómo podemos ordenarlas por el índice? Es necesario?
 df.loc["2015"].wind[8:18]
 print("Viento medio en 2015 sobre Mallorca: %f" %df.loc["2015"].wind.mean())
 print("Viento medio en 2014 sobre Mallorca: %f" %df.loc["2014"].wind.mean())
 
-#B
-years = range(df.index.min().year,df.index.max().year)
-meanwind = [df.loc[str(year)].wind.mean() for year in years]
-#lo mismo B, usando grupos, y obteniendo un df
-meanwind = df.groupby(df.index.year).mean()["wind"]
-
-import matplotlib.pyplot as plt 
-meanwind.plot(kind="bar")
-
-#C
 df.loc["2015"].mean()["wind"]>df.loc["2012"].mean()["wind"]
-
 ```
 
-Consultas con Meses...
+???
+df.sort_index()
+
+---
+
+Otro ejemplo: 
+
+```python
+years = range(df.index.min().year,df.index.max().year)
+meanwind = [df.loc[str(year)].wind.mean() for year in years]
+
+# o lo mismo pero más cool ;)
+meanwind = df.groupby(df.index.year).mean()["wind"]
+
+# obviamente, podríamos hacer cosas como:
+import matplotlib.pyplot as plt 
+meanwind.plot(kind="bar")
+```
+
+---
+
+También, podemos usar meses:
 ```python
 df.loc["01/2015"].describe()
 df.loc["01/2006":"01/2007"].wind.describe()
 ```
+y días:
+```python
+df.loc["17/05/2006"].wind
+```
+
+--
+
+Y por supuesto, acciones más complejas ya que el índice es una serie más.
+
+```python
+df.index.month==2 
+df[((df.index.month==2) | (df.index.month==3))] # Qué estoy seleccionando?
+```
+
+Como veís necesitamos considerar el concepto de fecha, periodos, frecuencias, etc.
 
 ---
 
@@ -303,7 +336,7 @@ print(value.microsecond)
 
 ---
 
-# Fechas
+# Secuencia de tiempos
 
 De la misma manera que podemos crear secuencias númericas, podemos crear secuencias de tiempos:
 
@@ -316,7 +349,7 @@ np.random.randint(5, size=(2, 4))
 
 index = pd.date_range('2000-1-1', periods=13, freq='M') #!
 ```
-La frecuencia nos permite definir el periodo de tiempo
+La *freq* nos permite definir el periodo de tiempo donde se repetirán esos periodos.
 
 ---
 
@@ -358,10 +391,10 @@ index = pd.date_range('2000-1-1', periods=5, freq='BM')
 index = pd.date_range('2000-1-1', periods=5, freq="2H30T")
 ```
 
-#### Sobre las fechas podemos realizar operaciones
+Sobre las fechas podemos realizar operaciones:
 ```python
-from pandas.tseries.offsets import * 
-dia = pd.datetime(2029,11,01,10,30)
+import datetime as dt
+dia = dt.datetime(2029,11,1,10,30)
 dia
 dia.month
 dia + Day()
@@ -370,11 +403,10 @@ dia - Day(30)
 
 dia + DateOffset(months=1, days=5)
 ```
+Estos operaciones están definidas en [Offsets](https://pandas.pydata.org/pandas-docs/stable/reference/offset_frequency.html)
 
-[Offset frecuencias](https://pandas.pydata.org/pandas-docs/stable/reference/offset_frequency.html)
 
-
-Podemos operar con offsets sobre una serie temporal
+Podemos operar con *offsets* sobre una serie temporal:
 ```python
 index = pd.date_range('2000-1-1', periods=10, freq='MS')
 index+DateOffset(months=1) 
@@ -388,6 +420,7 @@ Pandas ofrece la capacidad de "agrupar"/reacondicionar las muestras a otros peri
 
 Ejemplo:
 ```python
+import numpy as np
 index_dump = pd.date_range('2000-1-1', periods=3600, freq='S')
 ts = pd.Series(np.random.randint(0, 500, len(index_dump)), index=index_dump)
 
@@ -425,10 +458,12 @@ class: center, middle
 
 # Ejemplo 1
 
+¿Qué hacemos en este ejemplo?
+
 ```python
 import matplotlib.pyplot as plt
 
-df= pd.read_csv("data/climaMallorca.csv")  
+df= pd.read_csv("climaMallorca.csv")  #Alerta con el path!
 df.index = DatetimeIndex(df["idDate"])
 temperature = df["temperature_mean"]["2006":"2016"]
 
@@ -445,8 +480,10 @@ plt.title('Temperature sampling in the Balearic Islands')
 
 # Ejemplo 2
 
+¿Qué hacemos en este ejemplo?
+
 ```python
-df= pd.read_csv("data/climaMallorca.csv")  
+df= pd.read_csv("climaMallorca.csv")  #Alerta con el path!
 df.index = DatetimeIndex(df["idDate"])
 temperature = df["temperature_mean"]["2006":"2016"]
 
@@ -460,7 +497,9 @@ ax = data.plot(style=['-', '--', ':'])
 
 ---
 
-# Ejemplos
+# Ejemplos varios
+
+¿Qué hacemos en este ejemplo?
 
 ```python
 
